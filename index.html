@@ -6,12 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoàng Food</title>
-    <link href='./assets/img/favicon.png' rel='icon' type='image/x-icon' />
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/home-responsive.css">
-    <link rel="stylesheet" href="./assets/css/toast-message.css">
-    <link rel="stylesheet" href="./assets/font/font-awesome-pro-v6-6.2.0/css/all.min.css"/>
+    <link href='./public/assets/img/favicon.png' rel='icon' type='image/x-icon' />
+    <link rel="stylesheet" href="./public/assets/css/main.css">
+    <link rel="stylesheet" href="./public/assets/css/home-responsive.css">
+    <link rel="stylesheet" href="./public/assets/css/toast-message.css">
+    <link rel="stylesheet" href="./public/assets/font/font-awesome-pro-v6-6.2.0/css/all.min.css" />
 </head>
+
 <body>
     <header>
         <div class="header-top">
@@ -36,7 +37,7 @@
                 <div class="header-middle-left">
                     <div class="header-logo">
                         <a href="">
-                            <img src="./assets/img/HOÀNG FOOD (1).png" alt="" class="header-logo-img">
+                            <img src="./public/assets/img/HOÀNG FOOD (1).png" alt="" class="header-logo-img">
                         </a>
                     </div>
                 </div>
@@ -67,8 +68,10 @@
                                 <span class="text-tk">Tài khoản <i class="fa-sharp fa-solid fa-caret-down"></i></span>
                             </div>
                             <ul class="header-middle-right-menu">
-                                <li><a id="login" href="javascript:;"><i class="fa-light fa-right-to-bracket"></i> Đăng nhập</a></li>
-                                <li><a id="signup" href="javascript:;"><i class="fa-light fa-user-plus"></i> Đăng ký</a></li>
+                                <li><a id="login" href="javascript:;"><i class="fa-light fa-right-to-bracket"></i> Đăng
+                                        nhập</a></li>
+                                <li><a id="signup" href="javascript:;"><i class="fa-light fa-user-plus"></i> Đăng ký</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="header-middle-right-item open" onclick="openCart()">
@@ -87,13 +90,20 @@
         <div class="container">
             <ul class="menu-list">
                 <li class="menu-list-item"><a href="" class="menu-link">Trang chủ</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món chay')"><a href="javascript:;" class="menu-link">Món chay</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món mặn')"><a href="javascript:;" class="menu-link">Món mặn</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món lẩu')"><a href="javascript:;" class="menu-link">Món lẩu</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món ăn vặt')"><a href="javascript:;" class="menu-link">Món ăn vặt</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món tráng miệng')"><a href="javascript:;" class="menu-link">Món tráng miệng</a></li>
-                <li class="menu-list-item" onclick="showCategory('Nước uống')"><a href="javascript:;" class="menu-link">Nước uống</a></li>
-                <li class="menu-list-item" onclick="showCategory('Món khác')"><a href="javascript:;" class="menu-link">Món khác</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món chay')"><a href="javascript:;"
+                        class="menu-link">Món chay</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món mặn')"><a href="javascript:;"
+                        class="menu-link">Món mặn</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món lẩu')"><a href="javascript:;"
+                        class="menu-link">Món lẩu</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món ăn vặt')"><a href="javascript:;"
+                        class="menu-link">Món ăn vặt</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món tráng miệng')"><a href="javascript:;"
+                        class="menu-link">Món tráng miệng</a></li>
+                <li class="menu-list-item" onclick="showCategory('Nước uống')"><a href="javascript:;"
+                        class="menu-link">Nước uống</a></li>
+                <li class="menu-list-item" onclick="showCategory('Món khác')"><a href="javascript:;"
+                        class="menu-link">Món khác</a></li>
             </ul>
         </div>
     </nav>
@@ -119,9 +129,12 @@
                 <button id="advanced-search-price-btn"><i class="fa-light fa-magnifying-glass-dollar"></i></button>
             </div>
             <div class="advanced-search-control">
-                <button id="sort-ascending" onclick="searchProducts(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></button>
-                <button id="sort-descending" onclick="searchProducts(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
-                <button id="reset-search" onclick="searchProducts(0)"><i class="fa-light fa-arrow-rotate-right"></i></button>
+                <button id="sort-ascending" onclick="searchProducts(1)"><i
+                        class="fa-regular fa-arrow-up-short-wide"></i></button>
+                <button id="sort-descending" onclick="searchProducts(2)"><i
+                        class="fa-regular fa-arrow-down-wide-short"></i></button>
+                <button id="reset-search" onclick="searchProducts(0)"><i
+                        class="fa-light fa-arrow-rotate-right"></i></button>
                 <button onclick="closeSearchAdvanced()"><i class="fa-light fa-xmark"></i></button>
             </div>
         </div>
@@ -129,7 +142,7 @@
     <main class="main-wrapper">
         <div class="container" id="trangchu">
             <div class="home-slider">
-                <img src="./assets/img/slder-Hoangfood.png" alt="">
+                <img src="./public/assets/img/slder-Hoangfood.png" alt="">
                 <!-- <img src="./assets/img/banner-2.png" alt="">
                 <img src="./assets/img/banner-3.png" alt="">
                 <img src="./assets/img/banner-4.png" alt="">
@@ -377,7 +390,7 @@
             <div class="footer-top">
                 <div class="footer-top-content">
                     <div class="footer-top-img">
-                        <img src="./assets/img/HOÀNG FOOD (1).png" alt="">
+                        <img src="./public/assets/img/HOÀNG FOOD (1).png" alt="">
                     </div>
                     <div class="footer-top-subbox">
                         <div class="footer-top-subs">
@@ -401,7 +414,8 @@
                     <div class="widget-row-col-1">
                         <h3 class="widget-title">Về chúng tôi</h3>
                         <div class="widget-row-col-content">
-                            <p>Hoàng Food là thương hiệu được thành lập vào năm 2025 với tiêu chí đặt chất lượng sản phẩm lên hàng đầu.</p>
+                            <p>Hoàng Food là thương hiệu được thành lập vào năm 2025 với tiêu chí đặt chất lượng sản
+                                phẩm lên hàng đầu.</p>
                         </div>
                         <div class="widget-social">
                             <div class="widget-social-item">
@@ -685,9 +699,10 @@
         </main>
     </div>
     <div id="toast"></div>
-    <script src="./js/initialization.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/checkout.js"></script>
-    <script src="./js/toast-message.js"></script>
+    <script src="./public/js/initialization.js"></script>
+    <script src="./public/js/main.js"></script>
+    <script src="./public/js/checkout.js"></script>
+    <script src="./public/js/toast-message.js"></script>
 </body>
+
 </html>

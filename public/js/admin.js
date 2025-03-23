@@ -238,7 +238,7 @@ function editProduct(id) {
 
 function getPathImage(path) {
     let patharr = path.split("/");
-    return "./assets/img/products/" + patharr[patharr.length - 1];
+    return "./public/assets/img/products/" + patharr[patharr.length - 1];
 }
 
 let btnUpdateProductIn = document.getElementById("update-product-button");
@@ -318,7 +318,7 @@ document.querySelector(".modal-close.product-form").addEventListener("click",() 
 })
 
 function setDefaultValue() {
-    document.querySelector(".upload-image-preview").src = "./assets/img/blank-image.png";
+    document.querySelector(".upload-image-preview").src = "./public/assets/img/blank-image.png";
     document.getElementById("ten-mon").value = "";
     document.getElementById("gia-moi").value = "";
     document.getElementById("mo-ta").value = "";
@@ -349,7 +349,7 @@ for (let i = 0; i < closePopup.length; i++) {
 
 // On change Image
 function uploadImage(el) {
-    let path = "./assets/img/products/" + el.value.split("\\")[2];
+    let path = "./public/assets/img/products/" + el.value.split("\\")[2];
     document.querySelector(".upload-image-preview").setAttribute("src", path);
 }
 

@@ -33,7 +33,7 @@ body::-webkit-scrollbar {
 }
 
 .home-service::-webkit-scrollbar-track,.menu-list::-webkit-scrollbar-track,body::-webkit-scrollbar-track {
-    background-color: #fafafa;
+    background-color: #c6bfbf;
 }
 
 
@@ -100,7 +100,7 @@ input[type="radio"]+label:before {
     top: -3px;
     left: 0;
     border: 1px solid #aaa;
-    background-color: #fff;
+    background-color: #989494;
     border-radius: 50%;
 }
 
@@ -279,7 +279,7 @@ header {
 }
 
 .filter-btn{
-    background-color: var(--red);
+    background-color: green;
     height: 30px;
     color: var(--white);
     width: 75px;
@@ -325,7 +325,7 @@ header {
 .header-middle-right-item i {
     font-size: 25px;
     margin-right: 10px;
-    color: var(--red);
+    color: green;
 }
 
 .text-tk i {
@@ -606,7 +606,7 @@ header {
 .home-service-item-icon i{
     font-size: 40px;
     margin-right: 25px;
-    color: var(--red);
+    color: green;
 }
 
 .home-service-item-content-h{
@@ -634,7 +634,7 @@ header {
     content: "";
     position: absolute;
     height: 3px;
-    background-color: var(--red);
+    background-color: green;
     width: 25%;
     left: 50%;
     transform: translate(-50%);
@@ -759,7 +759,7 @@ header {
 }
 
 .card-button {
-    background-color: var(--red);
+    background-color: green;
     outline: none;
     border: none;
     width: 85%;
@@ -803,9 +803,9 @@ header {
 }
 
 .page-nav-item.active a,.page-nav-item a:hover {
-    background-color: var(--red);
+    background-color: green;
     color: var(--white);
-    border: 2px solid var(--red);
+    border: 2px solid green;
 }
 
 /*Modal Box*/
@@ -1125,7 +1125,7 @@ h2.product-title {
 }
 
 .form-control.error {
-    border-color: red;
+    border-color: green;
 }
 
 .form-control:focus {
@@ -1133,7 +1133,7 @@ h2.product-title {
 }
 
 .form-message {
-    color: red;
+    color: green;
     font-size: 13px;
     margin-top: 10px;
 }
@@ -1144,7 +1144,7 @@ h2.product-title {
     outline: none;
     border: none;
     color: var(--white);
-    background-color: var(--red);
+    background-color: green;
     border-radius: 5px;
     cursor: pointer;
     text-transform: uppercase;
@@ -1168,7 +1168,7 @@ h2.product-title {
 
 .change-login a,
 label a {
-    color: var(--red);
+    color: green;
 }
 
 .change-login {
@@ -1683,9 +1683,9 @@ input[type=number] {
 /* Footer */
 /* Css footer */
 .footer {
-    background-color: #f2f2f2;
+    background-color: #fff;
     margin-top: 30px;
-    border-top: 4px solid var(--red);
+    border-top: 4px solid green;
 }
 
 .footer .container {
@@ -1710,7 +1710,7 @@ input[type=number] {
 }
 
 .footer-top-img {
-    border-right: 1px solid #e6e6e6;
+    border-right: 1px solid #c0baba;
     padding-right: 25px;
 }
 
@@ -1765,7 +1765,7 @@ input[type=number] {
     margin-left: 10px;
     padding: 0 40px;
     cursor: pointer;
-    background: #B5292F;
+    background: green;
     overflow: hidden;
     outline: none;
     border: none;
@@ -1820,7 +1820,7 @@ input[type=number] {
     border-top: none;
     height: 3px;
     width: 100px;
-    background-image: linear-gradient(to right, var(--red), transparent);
+    background-image: linear-gradient(to right, green, transparent);
 }
 
 .widget-row-col-content {
@@ -1899,7 +1899,7 @@ input[type=number] {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--red);
+    background: green;
     color: var(--white)
 }
 
@@ -1911,7 +1911,7 @@ input[type=number] {
 }
 
 .copyright-wrap {
-    background: #f3f5f7;
+    background: #fff;
     color: var(--text-color);
     margin: unset;
     padding: 18px 0;
