@@ -1,15 +1,20 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
-const routes = require('./config/routes');
+const routes = require('./app/routes');
+const path = require('path');
 
 var config = require('config');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-// var controller = require(__dirname +'/app/controllers');
-// app.use(controller)
+connectDB();
+
+app.set('views', path.join(__dirname, 'app', 'views'));
+app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 

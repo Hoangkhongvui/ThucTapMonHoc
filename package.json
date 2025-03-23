@@ -6,6 +6,7 @@
     "body-parser": "^1.20.3",
     "config": "^3.3.12",
     "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "mongoose": "^8.12.1"
