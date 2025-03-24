@@ -177,6 +177,36 @@
                 <h2 class="home-title">Khám phá thực đơn của chúng tôi</h2>
             </div>
             <div class="home-products" id="home-products">
+                <% if (products.length > 0) { %>
+                    <% products.forEach(product => { %>
+                        <div class="col-product">
+                            <article class="card-product" >
+                                <div class="card-header">
+                                    <a href="#" class="card-image-link" onclick="">
+                                    <img class="card-image" src="<%= product.img %>" alt="${product.title}">
+                                    </a>
+                                </div>
+                                <div class="food-info">
+                                    <div class="card-content">
+                                        <div class="card-title">
+                                            <a href="#" class="card-title-link" onclick=""><%= product.title %></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="product-price">
+                                            <span class="current-price"><%= helpers.vnd(product.price) %></span>
+                                        </div>
+                                    <div class="product-buy">
+                                        <button onclick="" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt món</button>
+                                    </div> 
+                                </div>
+                                </div>
+                            </article>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="no-result"><div class="no-result-h">Tìm kiếm không có kết quả</div><div class="no-result-p">Xin lỗi, chúng tôi không thể tìm được kết quả hợp với tìm kiếm của bạn</div><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div></div>
+                <% } %>
             </div>
             <div class="page-nav">
                 <ul class="page-nav-list">
@@ -685,8 +715,8 @@
         </main>
     </div>
     <div id="toast"></div>
-    <script src="./js/initialization.js"></script>
-    <script src="./js/main.js"></script>
+    <!-- <script src="./js/initialization.js"></script> -->
+    <!-- <script src="./js/main.js"></script> -->
     <script src="./js/checkout.js"></script>
     <script src="./js/toast-message.js"></script>
 </body>

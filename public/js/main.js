@@ -822,7 +822,7 @@ window.addEventListener("scroll", () => {
     lastScrollY = window.scrollY;
 })
 
-// Page
+// Fill product
 function renderProducts(showProduct) {
     let productHtml = '';
     if(showProduct.length == 0) {

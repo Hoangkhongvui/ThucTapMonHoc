@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require('./config/db');
 const routes = require('./app/routes');
 const path = require('path');
+const helpers = require('./app/utils/helpers');
 
 var config = require('config');
 var bodyParser = require('body-parser');
@@ -13,6 +14,8 @@ connectDB();
 
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'ejs');
+
+app.locals.helpers = helpers;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
