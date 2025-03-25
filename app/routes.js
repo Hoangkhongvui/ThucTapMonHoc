@@ -8,4 +8,8 @@ const homeController = require('./controllers/homeController');
 router.get('/phone', homeController.printFirstUser);
 router.get('/', homeController.index);
 
+router.post('/login', userController.login);
+router.post('/register', userController.register);
+router.get('/logout', userController.logout);
+
 module.exports = router;

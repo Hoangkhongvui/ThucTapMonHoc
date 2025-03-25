@@ -4,11 +4,13 @@ const connectDB = require('./config/db');
 const routes = require('./app/routes');
 const path = require('path');
 const helpers = require('./app/utils/helpers');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 var config = require('config');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 connectDB();
 
@@ -17,7 +19,23 @@ app.set('view engine', 'ejs');
 
 app.locals.helpers = helpers;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/assets')));
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      dbName: 'my_database',
+      collectionName: 'sessions'
+  }),
+  cookie: {
+      maxAge: 1000 * 60 * 60 * 24
+  }
+}));
 
 app.use(routes);
 

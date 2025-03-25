@@ -4,8 +4,9 @@ const Product = require('../models/Product');
 
 exports.index = async (req, res) => {
     try {
+        const user = req.session.user;
         const products = await Product.find();
-        res.render('home/index', { products });
+        res.render('home/index', { user, products });
     } catch (error) {
         res.status(500).send('Error retrieving products');
     }
