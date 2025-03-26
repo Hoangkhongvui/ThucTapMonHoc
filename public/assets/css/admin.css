@@ -15,6 +15,7 @@
     text-decoration: none;
 }
 :root {
+    --violet:#4b0082;
     --red: #b5292f;
     --lightest-gray: rgb(249, 249, 249);
     --lighter-gray: rgb(240, 240, 240);
@@ -108,7 +109,7 @@ body,input,button,textarea,pre {
 }
 
 .switch-input:checked + .switch {
-    background-color: #4b0082;
+    background-color: var(--violet);
 }
 
 .switch-input:checked + .switch:after {
@@ -386,7 +387,7 @@ body,input,button,textarea,pre {
 }
 
 .sidebar-link:hover {
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .sidebar-list-item {
@@ -396,7 +397,7 @@ body,input,button,textarea,pre {
 }
 
 .sidebar-list-item.active {
-    color: #4b0082;
+    color: var(--violet);
     background-color: var(--lightest-gray);
 }
 
@@ -406,7 +407,7 @@ body,input,button,textarea,pre {
 
 .sidebar-list-item.active::before {
     content: "";
-    background-color: #4b0082;
+    background-color: var(--violet);
     height: 100%;
     top: 0;
     left: 0;
@@ -509,7 +510,7 @@ body,input,button,textarea,pre {
 .cards .card-single:hover .box {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(45deg, #4b0082, orange);
+    background: linear-gradient(45deg, var(--violet), orange);
 }
 
 .cards .card-single .box .on-box {
@@ -601,7 +602,7 @@ tbody tr td {
 }
 
 .btn-control-large{
-    background-color: #4b0082;
+    background-color: var(--violet);
     height: 40px;
     color: #fff;
     border-radius: 5px;
@@ -695,7 +696,7 @@ tbody tr td {
 }
 
 .list-current-price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 500;
 }
 
@@ -738,7 +739,7 @@ tbody tr td {
 }
 
 .btn-delete {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: white;
 }
 
@@ -857,7 +858,7 @@ tbody tr td {
 }
 
 .form-control:focus {
-    border-color: #4b0082;
+    border-color: var(--violet);
 }
 
 .form-message {
@@ -868,7 +869,7 @@ tbody tr td {
 
 .form-submit {
     height: 40px;
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: #fff;
     padding: 10px 30px;
     border-radius: 5px;
@@ -891,7 +892,7 @@ input[type="file"] {
 }
 
 .form-label-file {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: #fff;
     padding: 8px 40px;
     text-align: center;
@@ -953,11 +954,11 @@ input[type="file"] {
 }
 
 label a {
-    color: #4b0082;
+    color: var(--violet);
 }
 
 #btn-add-account{
-    background-color: #4b0082;
+    background-color: var(--violet);
     height: 30px;
     color: #fff;
     border-radius: 5px;
@@ -989,7 +990,7 @@ label a {
 }
 
 .admin-control-right button:hover {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color:#fff
 }
 
@@ -1140,7 +1141,7 @@ label a {
 }
 
 .order-product-current-price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 500;
 }
 
@@ -1184,7 +1185,7 @@ label a {
 }
 
 .detail-order-item i {
-    color: #4b0082;
+    color: var(--violet);
     margin-right: 5px;
 }
 
@@ -1207,7 +1208,7 @@ label a {
 }
 
 .price-total .price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 500;
     font-size: 16px;
 }
@@ -1231,7 +1232,7 @@ label a {
 }
 
 .status-no-complete {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
@@ -1240,7 +1241,7 @@ label a {
 }
 
 .btn-chuaxuly {
-    background-color: #4b0082;
+    background-color: var(--violet);
 }
 
 .btn-chuaxuly::before {
@@ -1292,9 +1293,9 @@ label a {
 
 .page-nav-item.active a,
 .page-nav-item a:hover {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: #fff;
-    border: 2px solid #4b0082;
+    border: 2px solid var(--violet);
 }
 
 /* order-statistical */
@@ -1317,7 +1318,7 @@ label a {
 .order-statistical-item-icon i{
     font-size: 45px;
     margin-right: 25px;
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .order-statistical-item-content-desc{

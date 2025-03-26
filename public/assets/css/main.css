@@ -10,6 +10,7 @@
     --black: #000;
     --text-color: #333;
     --red: #B5292F;
+    --violet: #4b0082;;
 }
 
 ul,
@@ -117,11 +118,11 @@ input[type="radio"]:checked+label:after {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #4b0082;
+    background: var(--violet);
 }
 
 input[type="radio"]:checked+label:before {
-    border: 1px solid #4b0082;
+    border: 1px solid var(--violet);
 }
 
 /* Custom checkbox */
@@ -168,8 +169,8 @@ input[type="checkbox"]:checked+label:after {
 }
 
 input[type="checkbox"]:checked+label:before {
-    border: 1px solid #4b0082;
-    background-color: #4b0082;
+    border: 1px solid var(--violet);
+    background-color: var(--violet);
 }
 
 .container {
@@ -192,7 +193,7 @@ header {
 }
 
 .header-top {
-    background-color: #4b0082;
+    background-color: var(--violet);
     height: 30px;
     width: 100%;
     display: none;
@@ -279,7 +280,7 @@ header {
 }
 
 .filter-btn{
-    background-color: #4b0082;
+    background-color: var(--violet);
     height: 30px;
     color: var(--white);
     width: 75px;
@@ -325,7 +326,7 @@ header {
 .header-middle-right-item i {
     font-size: 25px;
     margin-right: 10px;
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .text-tk i {
@@ -339,7 +340,7 @@ header {
 
 .cart-icon-menu span {
     color: var(--white);
-    background: #4b0082;
+    background: var(--violet);
     height: 20px;
     left: 20px;
     top: -15px;
@@ -483,7 +484,7 @@ header {
     width: 100%;
     left: 0;
     bottom: 0;
-    background-color: #4b0082;
+    background-color: var(--violet);
     transition: all 0.3s ease;
 }
 
@@ -551,13 +552,13 @@ header {
 
 #advanced-search-price-btn{
     margin-left: 10px;
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: var(--white);
     font-size: 20px;
 }
 
 .advanced-search-control button:hover{
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: var(--white);
 }
 
@@ -606,7 +607,7 @@ header {
 .home-service-item-icon i{
     font-size: 40px;
     margin-right: 25px;
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .home-service-item-content-h{
@@ -634,7 +635,7 @@ header {
     content: "";
     position: absolute;
     height: 3px;
-    background-color: #4b0082;
+    background-color: var(--violet);
     width: 25%;
     left: 50%;
     transform: translate(-50%);
@@ -692,7 +693,7 @@ header {
 .card-header strong {
     position: absolute;
     color: var(--white);
-    background-color: #4b0082;
+    background-color: var(--violet);
     right: 5px;
     top: 5px;
     padding: 5px 10px;
@@ -740,7 +741,7 @@ header {
 }
 
 .product-price .current-price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 600;
     font-size: 15px
 }
@@ -759,7 +760,7 @@ header {
 }
 
 .card-button {
-    background-color: #4b0082;
+    background-color: var(--violet);
     outline: none;
     border: none;
     width: 85%;
@@ -803,9 +804,9 @@ header {
 }
 
 .page-nav-item.active a,.page-nav-item a:hover {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: var(--white);
-    border: 2px solid #4b0082;
+    border: 2px solid var(--violet);
 }
 
 /*Modal Box*/
@@ -936,7 +937,7 @@ h2.product-title {
 }
 
 .priceBox .current-price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 600;
     font-size: 17px;
 }
@@ -1041,13 +1042,13 @@ h2.product-title {
 }
 
 .price-total .price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 600;
     font-size: 16px;
 }
 
 .modal-footer-control button {
-    background-color: #4b0082;
+    background-color: var(--violet);
     border: none;
     outline: none;
     color: var(--white);
@@ -1129,7 +1130,7 @@ h2.product-title {
 }
 
 .form-control:focus {
-    border-color: #4b0082;
+    border-color: var(--violet);
 }
 
 .form-message {
@@ -1144,7 +1145,7 @@ h2.product-title {
     outline: none;
     border: none;
     color: var(--white);
-    background-color: #4b0082;
+    background-color: var(--violet);
     border-radius: 5px;
     cursor: pointer;
     text-transform: uppercase;
@@ -1168,7 +1169,7 @@ h2.product-title {
 
 .change-login a,
 label a {
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .change-login {
@@ -1190,7 +1191,7 @@ label a {
     outline: none;
     height: 40px;
     color: #fff;
-    background-color: #4b0082;
+    background-color: var(--violet);
     cursor: pointer;
 }
 
@@ -1259,7 +1260,7 @@ label a {
 }
 
 .cart-header-title i {
-    color: #4b0082;
+    color: var(--violet);
     font-size: 20px;
     margin-right: 10px;
 }
@@ -1347,7 +1348,7 @@ label a {
 .cart-item-delete {
     border: none;
     outline: none;
-    background-color: #4b0082;
+    background-color: var(--violet);
     padding: 5px 10px;
     color: var(--white);
     border-radius: 5px;
@@ -1407,7 +1408,7 @@ button.them-mon {
 }
 
 button.thanh-toan {
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: var(--white);
 }
 
@@ -1521,7 +1522,7 @@ button.thanh-toan.disabled {
     border: none;
     outline: none;
     color: var(--white);
-    background-color: #4b0082;
+    background-color: var(--violet);
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
@@ -1596,7 +1597,7 @@ input[type=number] {
 }
 
 .order-history-current-price {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 500;
 }
 
@@ -1666,7 +1667,7 @@ input[type=number] {
 }
 
 .order-history-toltal-price {
-    color: #4b0082;
+    color: var(--violet);
     font-size: 22px;
     font-weight: 500;
 }
@@ -1685,7 +1686,7 @@ input[type=number] {
 .footer {
     background-color: #f2f2f2;
     margin-top: 30px;
-    border-top: 4px solid #4b0082;
+    border-top: 4px solid var(--violet);
 }
 
 .footer .container {
@@ -1765,7 +1766,7 @@ input[type=number] {
     margin-left: 10px;
     padding: 0 40px;
     cursor: pointer;
-    background: #4b0082;
+    background: var(--violet);
     overflow: hidden;
     outline: none;
     border: none;
@@ -1820,7 +1821,7 @@ input[type=number] {
     border-top: none;
     height: 3px;
     width: 100px;
-    background-image: linear-gradient(to right, #4b0082, transparent);
+    background-image: linear-gradient(to right, var(--violet), transparent);
 }
 
 .widget-row-col-content {
@@ -1864,7 +1865,7 @@ input[type=number] {
 }
 
 .widget-social-item:hover {
-    background-color: #4b0082;
+    background-color: var(--violet);
     transform: scale(1.1);
     border: none;
 }
@@ -1899,7 +1900,7 @@ input[type=number] {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #4b0082;
+    background: var(--violet);
     color: var(--white)
 }
 
@@ -1934,7 +1935,7 @@ input[type=number] {
     bottom: 70px;
     height: 40px;
     width: 40px;
-    background-color: #4b0082;
+    background-color: var(--violet);
     color: var(--white);
     text-align: center;
     line-height: 40px;
@@ -2015,7 +2016,7 @@ input[type=number] {
 }
 
 .checkout-col-right {
-    border: 1px solid #4b0082;
+    border: 1px solid var(--violet);
     padding: 15px;
     height: 100%;
 }
@@ -2056,7 +2057,7 @@ input[type=number] {
 }
 
 .checkout-col-title:before {
-    background: #4b0082;
+    background: var(--violet);
     width: 4px;
     height: 17px;
     left: 20px;
@@ -2089,7 +2090,7 @@ input[type=number] {
 
 .type-order-btn:hover,
 .type-order-btn.active {
-    border: 1px solid #4b0082;
+    border: 1px solid var(--violet);
     background-color: var(--white);
     color: var(--text-color);
 }
@@ -2131,7 +2132,7 @@ input[type=number] {
 
 .pick-date.active,
 .pick-date:hover {
-    background: #4b0082;
+    background: var(--violet);
     color: #FFFFFF;
 }
 
@@ -2146,7 +2147,7 @@ input[type=number] {
 
 .choise-time {
     font-size: 14px;
-    border: 1px solid #4b0082;
+    border: 1px solid var(--violet);
     height: 32px;
     outline: none !important;
     margin-left: 30px;
@@ -2221,11 +2222,11 @@ input[type=number] {
 }
 
 .policy-note a {
-    color: #4b0082;
+    color: var(--violet);
 }
 
 .priceFlx .count {
-    color: #4b0082;
+    color: var(--violet);
     font-size: 12px;
 }
 
@@ -2237,7 +2238,7 @@ input[type=number] {
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
-    border-top: 1px solid #4b0082
+    border-top: 1px solid var(--violet)
 }
 
 .price-bill {
@@ -2247,7 +2248,7 @@ input[type=number] {
 }
 
 .price-final {
-    color: #4b0082;
+    color: var(--violet);
     font-weight: 600;
 }
 
@@ -2270,7 +2271,7 @@ input[type=number] {
     border: none;
     cursor: pointer;
     color: var(--white);
-    background-color: #4b0082;
+    background-color: var(--violet);
     text-align: center;
     border-radius: 5px;
     margin-top: 20px;
@@ -2303,7 +2304,7 @@ input[type=number] {
 }
 
 .detail-order-item i {
-    color: #4b0082;
+    color: var(--violet);
     margin-right: 5px;
 }
 
