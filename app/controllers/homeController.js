@@ -3,7 +3,13 @@ const Product = require('../models/Product');
 
 
 exports.index = async (req, res) => {
-    res.render('home/index');
+    try {
+        const user = req.session.user;
+        const products = await Product.find();
+        res.render('home/index', { user, products });
+    } catch (error) {
+        res.status(500).send('Error retrieving products');
+    }
 };
 
 exports.printFirstUser = async (req, res) => {
