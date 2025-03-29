@@ -24,16 +24,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      dbName: 'my_database',
-      collectionName: 'sessions'
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        dbName: 'Hoangfood',
+        collectionName: 'sessions'
   }),
   cookie: {
-      maxAge: 1000 * 60 * 60 * 24
+    secure: false
   }
 }));
 
@@ -43,4 +43,4 @@ var host = config.get('server.host');
 var port = config.get('server.port');
 app.listen(3000, function(){
     console.log('Server is running on port 3000');
-})
+});

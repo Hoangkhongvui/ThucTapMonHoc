@@ -38,7 +38,8 @@ exports.register = async (req, res) => {
 
         console.log(req.session.user);
 
-        res.render('home/index', { user: req.session.user, products, success: 'Registration successful! Please log in.' });
+        req.session.success = 'Registration successful! Please log in.';
+        res.redirect('/');
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
