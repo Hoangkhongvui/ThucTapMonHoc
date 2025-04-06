@@ -24,11 +24,6 @@ function uploadImage(el) {
 }
 
 function editProduct(id) {
-    // let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
-    // let index = products.findIndex(item => {
-    //     return item.id == id;
-    // })
-    // indexCur = index;
     document.querySelectorAll(".add-product-e").forEach(item => {
         item.style.display = "none";
     })
