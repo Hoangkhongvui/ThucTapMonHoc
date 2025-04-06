@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userMiddleware = require('./middlewares/userMiddleware');
+const upload = require('./middlewares/uploadMiddleware');
 const productController = require('./controllers/productController');
 const adminController = require('./controllers/adminController');
 const userController = require('./controllers/userController');
@@ -16,5 +17,8 @@ router.get('/logout', userController.logout);
 
 //admin
 router.get('/admin', userMiddleware.checkAdmin, adminController.index);
+router.post('/admin/product/create', upload.single('image'), adminController.createProduct);
+router.post('/admin/product/update', upload.single('image'), adminController.updateProduct);
+router.post('/product/status', adminController.updateProductStatus);
 
 module.exports = router;

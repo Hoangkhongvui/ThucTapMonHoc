@@ -130,7 +130,7 @@
             </div>
             <!-- Product  -->
             <div class="section product-all">
-                <%- include('product') %>
+                <%- include('product', { allProducts: allProducts }) %>
             </div>
             <!-- Account  -->
             <div class="section">
@@ -145,64 +145,7 @@
             </div>
         </main>
     </div>
-    <div class="modal add-product">
-        <div class="modal-container">
-            <h3 class="modal-container-title add-product-e">THÊM MỚI SẢN PHẨM</h3>
-            <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
-            <button class="modal-close product-form"><i class="fa-regular fa-xmark"></i></button>
-            <div class="modal-content">
-                <form action="" class="add-product-form">
-                    <div class="modal-content-left">
-                        <img src="./img/blank-image.png" alt="" class="upload-image-preview">
-                        <div class="form-group file">
-                            <label for="up-hinh-anh" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn hình ảnh</label>
-                            <input accept="image/jpeg, image/png, image/jpg" id="up-hinh-anh" name="up-hinh-anh" type="file" class="form-control" onchange="uploadImage(this)">
-                        </div>
-                    </div>
-                    <div class="modal-content-right">
-                        <div class="form-group">
-                            <label for="ten-mon" class="form-label">Tên món</label>
-                            <input id="ten-mon" name="ten-mon" type="text" placeholder="Nhập tên món"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="category" class="form-label">Chọn món</label>
-                            <select name="category" id="chon-mon">
-                                <option>Món chay</option>
-                                <option>Món mặn</option>
-                                <option>Món lẩu</option>
-                                <option>Món ăn vặt</option>
-                                <option>Món tráng miệng</option>
-                                <option>Nước uống</option>
-                            </select>
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="gia-moi" class="form-label">Giá bán</label>
-                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá bán"
-                                class="form-control">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="mo-ta" class="form-label">Mô tả</label>
-                            <textarea class="product-desc" id="mo-ta" placeholder="Nhập mô tả món ăn..."></textarea>
-                            <span class="form-message"></span>
-                        </div>
-                        <button class="form-submit btn-add-product-form add-product-e" id="add-product-button">
-                            <i class="fa-regular fa-plus"></i>
-                            <span>THÊM MÓN</span>
-                        </button>
-                        <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
-                            <i class="fa-light fa-pencil"></i>
-                            <span>LƯU THAY ĐỔI</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            </form>
-        </div>
-    </div>
+
     <div class="modal detail-order">
         <div class="modal-container">
             <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>

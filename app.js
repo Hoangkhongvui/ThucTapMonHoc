@@ -20,6 +20,7 @@ app.set('view engine', 'ejs');
 app.locals.helpers = helpers;
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/assets/upload')));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 

@@ -22,8 +22,108 @@
         <button class="btn-control-large" id="btn-add-product"><i class="fa-light fa-plus"></i> Thêm món mới</button>                  
     </div>
 </div>
-<div id="show-product"></div>
+<div id="show-product">
+    <% if (allProducts.length > 0) { %>
+        <% allProducts.forEach(product => { %>
+            <div class="list">
+                <div class="list-left">
+                    <img src="<%= product.img %>" alt="">
+                    <div class="list-info">
+                        <h4><%= product.title %></h4>
+                        <p class="list-note"><%= product.desc %></p>
+                        <span class="list-category"><%= product.category %></span>
+                    </div>
+                </div>
+                <div class="list-right">
+                    <div class="list-price">
+                        <span class="list-current-price"><%= helpers.vnd(product.price) %></span>                   
+                    </div>
+                    <div class="list-control">
+                        <div class="list-tool">
+                            <button class="btn-edit" onclick="editProduct(<%= product.id %>)"><i class="fa-light fa-pen-to-square"></i></button>
+                            <form action="/product/status" method="POST" style="display:inline;">
+                                <input type="hidden" name="productId" value="<%= product.id %>" />
+                                <button type="submit" class="btn-delete" onclick="confirmDeletion(event)">
+                                    <i class="fa-regular fa-trash"></i>
+                                </button>
+                            </form>
+                            <!-- <button class="btn-delete" onclick="changeStatusProduct(<%= product.id %>)"><i class="fa-regular fa-eye"></i></button> -->
+                        </div>                       
+                    </div>
+                </div> 
+            </div>
+        <% }) %>
+    <% } else { %>
+        <div class="no-result"><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div><div class="no-result-h">Không có sản phẩm để hiển thị</div></div>
+    <% } %>
+</div>
+
 <div class="page-nav">
     <ul class="page-nav-list">
     </ul>
 </div>
+
+<div class="modal add-product">
+    <div class="modal-container">
+        <h3 class="modal-container-title add-product-e">THÊM MỚI SẢN PHẨM</h3>
+        <h3 class="modal-container-title edit-product-e">CHỈNH SỬA SẢN PHẨM</h3>
+        <button class="modal-close product-form"><i class="fa-regular fa-xmark"></i></button>
+        <div class="modal-content">
+            <form action="" method="POST" enctype="multipart/form-data" class="add-product-form">
+                <input type="hidden" id="productId" name="productId">
+                <div class="modal-content-left">
+                    <img src="./img/blank-image.png" alt="" class="upload-image-preview">
+                    <div class="form-group file">
+                        <label for="image" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn hình ảnh</label>
+                        <input type="file" id="image" name="image" class="form-control" accept="image/*" onchange="uploadImage(this)">
+                    </div>
+                </div>
+                <div class="modal-content-right">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Tên món</label>
+                        <input id="name" name="name" type="text" placeholder="Nhập tên món"
+                            class="form-control">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="category" class="form-label">Chọn món</label>
+                        <select name="category" id="category">
+                            <option value="Món chay">Món chay</option>
+                            <option value="Món mặn">Món mặn</option>
+                            <option value="Món lẩu">Món lẩu</option>
+                            <option value="Món ăn vặt">Món ăn vặt</option>
+                            <option value="Món tráng miệng">Món tráng miệng</option>
+                            <option value="Nước uống">Nước uống</option>
+                        </select>
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="form-label">Giá bán</label>
+                        <input id="price" name="price" type="text" placeholder="Nhập giá bán"
+                            class="form-control">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Mô tả</label>
+                        <textarea class="product-desc" name="description" id="description" placeholder="Nhập mô tả món ăn..."></textarea>
+                        <span class="form-message"></span>
+                    </div>
+                    <button class="form-submit btn-add-product-form add-product-e" id="add-product-button">
+                        <i class="fa-regular fa-plus"></i>
+                        <span>THÊM MÓN</span>
+                    </button>
+                    <button class="form-submit btn-update-product-form edit-product-e" id="update-product-button">
+                        <i class="fa-light fa-pencil"></i>
+                        <span>LƯU THAY ĐỔI</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const products = <%- JSON.stringify(allProducts) %>;
+</script>
+<script src="js/modal_product_form.js"></script>
