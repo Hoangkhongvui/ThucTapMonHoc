@@ -238,7 +238,7 @@ function editProduct(id) {
 
 function getPathImage(path) {
     let patharr = path.split("/");
-    return "./assets/img/products/" + patharr[patharr.length - 1];
+    return "./public/assets/img/products/" + patharr[patharr.length - 1];
 }
 
 let btnUpdateProductIn = document.getElementById("update-product-button");

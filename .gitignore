@@ -1,2 +1,5 @@
 node_modules/
 .env
+
+public/assets/upload/*
+!public/assets/upload/access-denied.webp
