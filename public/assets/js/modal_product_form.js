@@ -34,11 +34,23 @@ function editProduct(id) {
     document.querySelector('.add-product-form').action = '/admin/product/update';
     document.querySelector('input#productId').value = id;
     //
-    document.querySelector(".upload-image-preview").src = products[id - 1].img;
-    document.getElementById("name").value = products[id - 1].title;
-    document.getElementById("price").value = products[id - 1].price;
-    document.getElementById("description").value = products[id - 1].desc;
-    document.getElementById("category").value = products[id - 1].category;
+
+    fetch(`/admin/product/${id}`)
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch product");
+            return response.json();
+        })
+        .then(product => {
+            document.querySelector(".upload-image-preview").src = product.img || "";
+            document.getElementById("name").value = product.title || "";
+            document.getElementById("price").value = product.price || "";
+            document.getElementById("description").value = product.desc || "";
+            document.getElementById("category").value = product.category || "";
+        })
+        .catch(error => {
+            console.error("Error fetching product:", error);
+            alert("Unable to load product data.");
+        });
 }
 
 function confirmDeletion(event) {

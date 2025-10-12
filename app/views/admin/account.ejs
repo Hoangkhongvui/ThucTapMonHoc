@@ -22,24 +22,39 @@
                 <label for="time-end">Đến</label>
                 <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
             </div>
-        </form>      
-        <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-light fa-arrow-rotate-right"></i></button>     
-        <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>          
+        </form>
+        <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-light fa-arrow-rotate-right"></i></button>
+        <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
     </div>
 </div>
 <div class="table">
-    <table width="100%">
-        <thead>
-            <tr>
-                <td>STT</td>
-                <td>Họ và tên</td>
-                <td>Liên hệ</td>
-                <td>Ngày tham gia</td>
-                <td>Tình trạng</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody id="show-user">
-        </tbody>
-    </table>
+    <% if (allUsers.length < 0) { %>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>STT</td>
+                    <td>Họ và tên</td>
+                    <td>Liên hệ</td>
+                    <td>Ngày tham gia</td>
+                    <td>Tình trạng</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="show-user">
+                <tr>
+                    <td></td>
+                    <td>${account.fullname}</td>
+                    <td>${account.phone}</td>
+                    <td>${formatDate(account.join)}</td>
+                    <td>${tinhtrang}</td>
+                    <td class="control control-table">
+                        <button class="btn-edit" id="edit-account" onclick='editAccount()' ><i class="fa-light fa-pen-to-square"></i></button>
+                        <button class="btn-delete" id="delete-account" onclick="deleteAcount()"><i class="fa-regular fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <% } else { %>
+        <div class="no-result"><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div><div class="no-result-h">Không có người dùng để hiển thị</div></div>
+    <% } %>
 </div>

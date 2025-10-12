@@ -18,6 +18,7 @@ router.get('/logout', userController.logout);
 //admin
 router.get('/admin', userMiddleware.checkAdmin, adminController.index);
 router.post('/admin/product/create', upload.single('image'), adminController.createProduct);
+router.get('/admin/product/:id', adminController.getProduct);
 router.post('/admin/product/update', upload.single('image'), adminController.updateProduct);
 router.post('/product/status', adminController.updateProductStatus);
 

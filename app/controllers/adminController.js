@@ -7,11 +7,11 @@ exports.index = async (req, res) => {
         const totalUser = await User.countDocuments();
         const totalProduct = await Product.countDocuments({ status: { $ne: 0 } });
         // const allProducts = await Product.find().sort({ id: -1 });
-        const allProducts = await Product.find({ status: { $ne: 0 } });
+        const allProducts = await Product.find({ status: { $ne: 0 } }).sort({ id: -1 });
         const allUsers = await User.find();
-        res.render('admin/index', { 
+        res.render('admin/index', {
             user,
-            totalUser, 
+            totalUser,
             totalProduct,
             allProducts,
             allUsers
@@ -37,13 +37,22 @@ exports.createProduct = async (req, res) => {
         console.log(maxP);
         const newProduct = new Product({ id: maxP.id + 1, title: name, desc: description, price, category, img: image, status: 1 });
         await newProduct.save();
-        // req.flash('success', 'Product created successfully');
         res.redirect('/admin');
     } catch (error) {
         console.error('Error creating product:', error);
         res.redirect('/admin');
     }
 };
+
+exports.getProduct = async(req, res) => {
+    try {
+        const product = await Product.findOne({ id: req.params.id })
+        if (!product) return res.status(404).json({ error: 'Not found' });
+        res.json(product);
+    } catch (err) {
+        res.status(500).json({ error: 'Server error', detail: err })
+    }
+}
 
 exports.updateProduct = async (req, res) => {
     const { productId, name, description, price, category } = req.body;
@@ -58,7 +67,7 @@ exports.updateProduct = async (req, res) => {
     try {
         // Find the product by its ID
         const product = await Product.findOne({ id: productId });
-        
+
         if (!product) {
             req.flash('error', 'Product not found!');
             return res.redirect('/admin');
@@ -105,6 +114,3 @@ exports.updateProductStatus = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
-
-
-
