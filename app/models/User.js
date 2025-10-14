@@ -9,7 +9,11 @@ const UserSchema = new mongoose.Schema({
     status: Number,
     join: Date,
     cart: Array,
-    userType: Number
+    userType: {
+        type: Number,
+        enum: [0, 1], // 0: User, 1: Admin
+        default: 0
+    }
 });
 
 module.exports = mongoose.model("User", UserSchema);
