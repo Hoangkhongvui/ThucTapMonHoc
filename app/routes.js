@@ -22,4 +22,10 @@ router.get('/admin/product/:id', adminController.getProduct);
 router.post('/admin/product/update', upload.single('image'), adminController.updateProduct);
 router.post('/product/status', adminController.updateProductStatus);
 
+router.post('/admin/user/create', adminController.createUser);
+router.get('/admin/user/:id', adminController.getUser);
+router.post('/admin/user/update', adminController.updateUser);
+router.post('/user/status', adminController.updateUserStatus);
+
+
 module.exports = router;

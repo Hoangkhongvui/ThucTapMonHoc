@@ -21,8 +21,8 @@ app.locals.helpers = helpers;
 
 app.use(express.static(path.join(__dirname, 'public/assets')));
 app.use('/uploads', express.static(path.join(__dirname, 'public/assets/upload')));
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     secret: 'your_secret_key',
@@ -39,8 +39,8 @@ app.use(session({
 
 app.use(routes);
 
-var host = config.get('server.host');
-var port = config.get('server.port');
-app.listen(3000, function(){
-    console.log('Server is running on port 3000');
+var port = process.env.PORT || 3000
+
+app.listen(port, function(){
+    console.log(`Server is running on port ${port}`);
 });

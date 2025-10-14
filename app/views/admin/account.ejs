@@ -27,8 +27,9 @@
         <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>
     </div>
 </div>
+
 <div class="table">
-    <% if (allUsers.length < 0) { %>
+    <% if (allUsers.length > 0) { %>
         <table width="100%">
             <thead>
                 <tr>
@@ -41,20 +42,59 @@
                 </tr>
             </thead>
             <tbody id="show-user">
-                <tr>
-                    <td></td>
-                    <td>${account.fullname}</td>
-                    <td>${account.phone}</td>
-                    <td>${formatDate(account.join)}</td>
-                    <td>${tinhtrang}</td>
-                    <td class="control control-table">
-                        <button class="btn-edit" id="edit-account" onclick='editAccount()' ><i class="fa-light fa-pen-to-square"></i></button>
-                        <button class="btn-delete" id="delete-account" onclick="deleteAcount()"><i class="fa-regular fa-trash"></i></button>
-                    </td>
-                </tr>
+                <% allUsers.forEach((user, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= user.fullname %></td>
+                        <td><%= user.phone %></td>
+                        <td><%= helpers.formatDate(user.join) %></td>
+                        <td><%= helpers.userStatus(user.status) %></td>
+                        <td class="control control-table">
+                            <button class="btn-edit" id="edit-account" onclick="editAccount('<%= user._id %>')" ><i class="fa-light fa-pen-to-square"></i></button>
+                            <button class="btn-delete" id="delete-account" onclick="deleteAcount()"><i class="fa-regular fa-trash"></i></button>
+                        </td>
+                    </tr>
+                <% }) %>
             </tbody>
         </table>
     <% } else { %>
         <div class="no-result"><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div><div class="no-result-h">Không có người dùng để hiển thị</div></div>
     <% } %>
 </div>
+
+<div class="modal signup">
+    <div class="modal-container">
+        <h3 class="modal-container-title add-account-e">THÊM KHÁCH HÀNG MỚI</h3>
+        <h3 class="modal-container-title edit-account-e">CHỈNH SỬA THÔNG TIN</h3>
+        <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
+        <div class="form-content sign-up">
+            <form action="" method="POST" class="add-user-form">
+                <input type="hidden" id="userId" name="userId">
+                <div class="form-group">
+                    <label for="fullname" class="form-label">Tên đầy đủ</label>
+                    <input id="fullname" name="fullname" type="text" placeholder="VD: Nhật Sinh" class="form-control">
+                    <span class="form-message-name form-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
+                    <span class="form-message-phone form-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input id="password" name="password" type="text" placeholder="Nhập mật khẩu" class="form-control">
+                    <span class="form-message-password form-message"></span>
+                </div>
+                <div class="form-group edit-account-e">
+                    <label for="" class="form-label">Trạng thái</label>
+                    <input type="checkbox" id="userStatus" class="switch-input">
+                    <label for="userStatus" class="switch"></label>
+                </div>
+                <button class="form-submit add-account-e" id="signup-button">Đăng ký</button>
+                <button class="form-submit edit-account-e" id="btn-update-account"><i class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/modal_user_form.js"></script>

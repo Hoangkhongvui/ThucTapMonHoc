@@ -3,7 +3,7 @@ function createProduct() {
     if (localStorage.getItem('products') == null) {
         let products = [{
             id: 1,
-            status: 1, 
+            status: 1,
             title: 'Nấm đùi gà xào cháy tỏi',
             img: './assets/img/products/nam-dui-ga-chay-toi.jpeg',
             category: 'Món mặn',
@@ -12,7 +12,7 @@ function createProduct() {
         },
         {
             id: 2,
-            status: 1, 
+            status: 1,
             title: 'Rau xào ngũ sắc',
             img: './assets/img/products/rau-xao-ngu-sac.png',
             category: 'Món mặn',
@@ -21,7 +21,7 @@ function createProduct() {
         },
         {
             id: 3,
-            status: 1, 
+            status: 1,
             title: 'Bánh lava phô mai nướng',
             img: './assets/img/products/banh_lava_pho_mai_nuong.jpeg',
             category: 'Món mặn',
@@ -38,7 +38,7 @@ function createProduct() {
         },
         {
             id: 5,
-            status: 1, 
+            status: 1,
             title: 'Cơm chiên cua',
             img: './assets/img/products/com_chien_cua.png',
             category: 'Món mặn',
@@ -48,7 +48,7 @@ function createProduct() {
 
         {
             id: 6,
-            status: 1, 
+            status: 1,
             title: 'Súp bào ngư hải sâm (1 phần)',
             img: './assets/img/products/sup-bao-ngu-hai-sam.jpeg',
             category: 'Món mặn',
@@ -58,7 +58,7 @@ function createProduct() {
 
         {
             id: 7,
-            status: 1, 
+            status: 1,
             title: 'Tai cuộn lưỡi',
             category: 'Món mặn',
             img: './assets/img/products/tai-cuon-luoi.jpeg',
@@ -68,7 +68,7 @@ function createProduct() {
 
         {
             id: 8,
-            status: 1, 
+            status: 1,
             title: 'Xíu mại tôm thịt 10 viên',
             img: './assets/img/products/xiu_mai_tom_thit_10_vien.jpg',
             category: 'Món mặn',
@@ -78,7 +78,7 @@ function createProduct() {
 
         {
             id: 9,
-            status: 1, 
+            status: 1,
             title: 'Trà phô mai kem sữa',
             category: "Nước uống",
             img: './assets/img/products/tra-pho-mai-kem-sua.jpg',
@@ -87,7 +87,7 @@ function createProduct() {
         },
         {
             id: 10,
-            status: 1, 
+            status: 1,
             title: 'Trà đào chanh sả',
             category: "Nước uống",
             img: './assets/img/products/tra-dao-chanh-sa.jpg',
@@ -96,7 +96,7 @@ function createProduct() {
         },
         {
             id: 11,
-            status: 1, 
+            status: 1,
             title: 'Bánh chuối nướng',
             category: 'Món tráng miệng',
             img: './assets/img/products/banh-chuoi-nuong.jpeg',
@@ -105,7 +105,7 @@ function createProduct() {
         },
         {
             id: 12,
-            status: 1, 
+            status: 1,
             title: 'Há cảo sò điệp (10 viên)',
             img: './assets/img/products/ha_cao.jpg',
             category: 'Món mặn',
@@ -114,7 +114,7 @@ function createProduct() {
         },
         {
             id: 13,
-            status: 1, 
+            status: 1,
             title: 'Chả rươi (100gr)',
             img: './assets/img/products/thit_nuong.jpg',
             category: 'Món mặn',
@@ -123,7 +123,7 @@ function createProduct() {
         },
         {
             id: 14,
-            status: 1, 
+            status: 1,
             title: 'Nộm gà Hội An (1 phần)',
             img: './assets/img/products/nom_ga_hoi_an.png',
             category: 'Món mặn',
@@ -132,7 +132,7 @@ function createProduct() {
         },
         {
             id: 15,
-            status: 1, 
+            status: 1,
             title: 'Set bún cá (1 set 5 bát)',
             img: './assets/img/products/set_bun_ca.jpg',
             category: 'Món mặn',
@@ -141,7 +141,7 @@ function createProduct() {
         },
         {
             id: 16,
-            status: 1, 
+            status: 1,
             title: 'Bún cá (1 phần)',
             img: './assets/img/products/set_bun_ca.jpg',
             category: 'Món mặn',
@@ -150,7 +150,7 @@ function createProduct() {
         },
         {
             id: 17,
-            status: 1, 
+            status: 1,
             title: 'Xôi trắng hành phi (1 phần)',
             img: './assets/img/products/bun_ca_hanh_phi.jpeg',
             category: 'Món mặn',
@@ -159,7 +159,7 @@ function createProduct() {
         },
         {
             id: 18,
-            status: 1, 
+            status: 1,
             title: 'Tôm sú lột rang thịt (1 phần)',
             img: './assets/img/products/tom_su_luot_ran_thit.png',
             category: 'Món mặn',
@@ -168,7 +168,7 @@ function createProduct() {
         },
         {
             id: 19,
-            status: 1, 
+            status: 1,
             title: 'Bánh cookie dừa',
             img: './assets/img/products/banh_cookie_dua.jpeg',
             category: 'Món mặn',
@@ -177,7 +177,7 @@ function createProduct() {
         },
         {
             id: 20,
-            status: 1, 
+            status: 1,
             title: 'Cá chiên giòn sốt mắm Thái',
             img: './assets/img/products/sot_mam_thai.jpeg',
             category: 'Món mặn',
@@ -186,7 +186,7 @@ function createProduct() {
         },
         {
             id: 21,
-            status: 1, 
+            status: 1,
             title: 'Tôm sú rang muối (1 suất)',
             category: 'Món mặn',
             img: './assets/img/products/tom-su-rang-muoi.jpeg',
@@ -195,7 +195,7 @@ function createProduct() {
         },
         {
             id: 22,
-            status: 1, 
+            status: 1,
             title: 'Tôm sú rang bơ tỏi (1 suất)',
             category: 'Món mặn',
             img: './assets/img/products/tom-su-rang-bo-toi.jpeg',
@@ -205,7 +205,7 @@ function createProduct() {
 
         {
             id: 23,
-            status: 1, 
+            status: 1,
             title: 'Combo Vịt quay và gỏi vịt',
             category: 'Món mặn',
             img: './assets/img/products/combo-vitquay-va-goivit.jpeg',
@@ -215,7 +215,7 @@ function createProduct() {
 
         {
             id: 24,
-            status: 1, 
+            status: 1,
             title: 'Set cá cơm tầm',
             img: './assets/img/products/set_ca_tam.jpg',
             category: 'Món mặn',
@@ -224,7 +224,7 @@ function createProduct() {
         },
         {
             id: 25,
-            status: 1, 
+            status: 1,
             title: 'Chả ốc 1 phần',
             img: './assets/img/products/cha_oc_1_phan.jpeg',
             category: 'Món mặn',
@@ -234,7 +234,7 @@ function createProduct() {
 
         {
             id: 26,
-            status: 1, 
+            status: 1,
             title: 'Gà ủ muối thảo mộc (1 con)',
             category: 'Món mặn',
             img: './assets/img/products/ga-u-muoi-thao-moc.png',
@@ -244,7 +244,7 @@ function createProduct() {
 
         {
             id: 27,
-            status: 1, 
+            status: 1,
             title: 'Gà không lối thoát (1 con)',
             category: 'Món mặn',
             img: './assets/img/products/ga-khong-loi-thoat.png',
@@ -254,7 +254,7 @@ function createProduct() {
 
         {
             id: 28,
-            status: 1, 
+            status: 1,
             title: 'Cá chiên giòn mắm Thái (1 con)',
             category: 'Món mặn',
             img: './assets/img/products/ca-chien-gion-mam-thai.jpeg',
@@ -264,7 +264,7 @@ function createProduct() {
 
         {
             id: 29,
-            status: 1, 
+            status: 1,
             title: 'Chân giò chiên giòn mắm Thái',
             category: 'Món mặn',
             img: './assets/img/products/chan-gio-chien-gion-mam-thai.jpeg',
@@ -274,7 +274,7 @@ function createProduct() {
 
         {
             id: 30,
-            status: 1, 
+            status: 1,
             title: 'Chả cốm (500gr)',
             category: 'Món mặn',
             img: './assets/img/products/cha-com.png',
@@ -284,7 +284,7 @@ function createProduct() {
 
         {
             id: 31,
-            status: 1, 
+            status: 1,
             title: 'Vịt om sấu (1 hộp)',
             category: 'Món mặn',
             img: './assets/img/products/vit-om-sau.jpeg',
@@ -294,7 +294,7 @@ function createProduct() {
 
         {
             id: 32,
-            status: 1, 
+            status: 1,
             title: 'Giò xào (1kg)',
             category: 'Món mặn',
             img: './assets/img/products/gio-xao.jpeg',
@@ -304,7 +304,7 @@ function createProduct() {
 
         {
             id: 33,
-            status: 1, 
+            status: 1,
             title: 'Nem tai (1 hộp)',
             category: 'Món mặn',
             img: './assets/img/products/nem-tai.jpeg',
@@ -314,7 +314,7 @@ function createProduct() {
 
         {
             id: 34,
-            status: 1, 
+            status: 1,
             title: 'Canh dưa bò hầm (1 hộp)',
             category: 'Món mặn',
             img: './assets/img/products/canh-dua-bo-ham.jpeg',
@@ -324,7 +324,7 @@ function createProduct() {
 
         {
             id: 35,
-            status: 1, 
+            status: 1,
             title: 'Nạc nọng heo nướng kèm xôi trắng (500gr)',
             category: 'Món mặn',
             img: './assets/img/products/nac-nong-heo-nuong-kem-xoi-trang.jpeg',
@@ -334,7 +334,7 @@ function createProduct() {
 
         {
             id: 36,
-            status: 1, 
+            status: 1,
             title: 'Thịt quay (400gr)',
             category: 'Món mặn',
             img: './assets/img/products/thit-quay.jpeg',
@@ -344,7 +344,7 @@ function createProduct() {
 
         {
             id: 37,
-            status: 1, 
+            status: 1,
             title: 'Khâu nhục',
             category: 'Món mặn',
             img: './assets/img/products/khau-nhuc.jpeg',
@@ -353,7 +353,7 @@ function createProduct() {
         },
         {
             id: 38,
-            status: 1, 
+            status: 1,
             title: 'Xíu mại tôm thịt ( 10 viên)',
             category: 'Món mặn',
             img: './assets/img/products/ha_cao_tom_thit.jpg',
@@ -362,7 +362,7 @@ function createProduct() {
         },
         {
             id: 39,
-            status: 1, 
+            status: 1,
             title: 'Chè hương cốm lá dứa',
             category: 'Món tráng miệng',
             img: './assets/img/products/che-com-la-dua.jpeg',
@@ -372,7 +372,7 @@ function createProduct() {
 
         {
             id: 40,
-            status: 1, 
+            status: 1,
             title: 'Bánh bông lan chanh dây',
             category: 'Món tráng miệng',
             img: './assets/img/products/banh-bong-lan-chanh-day.jpeg',
@@ -382,7 +382,7 @@ function createProduct() {
 
         {
             id: 41,
-            status: 1, 
+            status: 1,
             title: 'Chè bưởi',
             category: 'Món tráng miệng',
             img: './assets/img/products/che-buoi.jpeg',
@@ -391,7 +391,7 @@ function createProduct() {
         },
         {
             id: 42,
-            status: 1, 
+            status: 1,
             title: 'Set lẩu Thái tomyum',
             category: "Món lẩu",
             img: './assets/img/products/lau-thai-tomyum.jpeg',
@@ -400,7 +400,7 @@ function createProduct() {
         },
         {
             id: 43,
-            status: 1, 
+            status: 1,
             title: 'Set lẩu Thái nấm chay',
             category: "Món lẩu",
             img: './assets/img/products/lau-thai-nam-chay.png',
@@ -409,7 +409,7 @@ function createProduct() {
         },
         {
             id: 44,
-            status: 1, 
+            status: 1,
             title: 'Đậu hũ xào nấm chay',
             category: "Món chay",
             img: './assets/img/products/dau-hu-xao-nam-chay.png',
@@ -418,7 +418,7 @@ function createProduct() {
         },
         {
             id: 45,
-            status: 1, 
+            status: 1,
             title: 'Bún trộn chay (1 suất)',
             category: "Món chay",
             img: './assets/img/products/bun-tron-chay.png',
@@ -427,7 +427,7 @@ function createProduct() {
         },
         {
             id: 46,
-            status: 1, 
+            status: 1,
             title: 'Bún riêu chay (1 suất)',
             category: "Món chay",
             img: './assets/img/products/bun-rieu-chay.png',
@@ -436,7 +436,7 @@ function createProduct() {
         },
         {
             id: 47,
-            status: 1, 
+            status: 1,
             title: 'Miến xào rau củ chay',
             category: "Món chay",
             img: './assets/img/products/mien-xao-rau-cu-chay.png',
@@ -445,7 +445,7 @@ function createProduct() {
         },
         {
             id: 48,
-            status: 1, 
+            status: 1,
             title: 'Cuốn nấm chay (10 cuốn)',
             category: "Món chay",
             img: './assets/img/products/cuon-nam-chay.png',
@@ -454,7 +454,7 @@ function createProduct() {
         },
         {
             id: 49,
-            status: 1, 
+            status: 1,
             title: 'Xôi xéo',
             category: "Món chay",
             img: './assets/img/products/xoi-xeo.png',
@@ -463,7 +463,7 @@ function createProduct() {
         },
         {
             id: 50,
-            status: 1, 
+            status: 1,
             title: 'Chả quế chay',
             category: "Món chay",
             img: './assets/img/products/cha-que-chay.png',
@@ -472,7 +472,7 @@ function createProduct() {
         },
         {
             id: 51,
-            status: 1, 
+            status: 1,
             title: 'Nem chay',
             category: "Món chay",
             img: './assets/img/products/nem-chay.png',
@@ -481,7 +481,7 @@ function createProduct() {
         },
         {
             id: 52,
-            status: 1, 
+            status: 1,
             title: 'Bánh tráng trộn',
             category: "Món ăn vặt",
             img: './assets/img/products/banh-trang-tron.jpg',
@@ -490,7 +490,7 @@ function createProduct() {
         },
         {
             id: 53,
-            status: 1, 
+            status: 1,
             title: 'Bánh tráng nướng',
             category: "Món ăn vặt",
             img: './assets/img/products/banh-trang-nuong.jpg',
@@ -499,7 +499,7 @@ function createProduct() {
         },
         {
             id: 54,
-            status: 1, 
+            status: 1,
             title: 'Ốc thập cẩm (1 suất)',
             category: "Món ăn vặt",
             img: './assets/img/products/oc-thap-cam.jpg',
@@ -508,7 +508,7 @@ function createProduct() {
         },
         {
             id: 55,
-            status: 1, 
+            status: 1,
             title: 'Cơm cháy chà bông',
             category: "Món ăn vặt",
             img: './assets/img/products/com-chay-cha-bong.jpg',
@@ -517,7 +517,7 @@ function createProduct() {
         },
         {
             id: 56,
-            status: 1, 
+            status: 1,
             title: 'Phá lấu (1 suất)',
             category: "Món ăn vặt",
             img: './assets/img/products/pha-lau.jpg',
@@ -526,7 +526,7 @@ function createProduct() {
         },
         {
             id: 57,
-            status: 1, 
+            status: 1,
             title: 'Bột chiên (1 suất)',
             category: "Món ăn vặt",
             img: './assets/img/products/bot-chien.jpg',
@@ -535,7 +535,7 @@ function createProduct() {
         },
         {
             id: 58,
-            status: 1, 
+            status: 1,
             title: 'Gỏi khô bò (1 suất)',
             category: "Món ăn vặt",
             img: './assets/img/products/goi-bo-kho.jpg',
@@ -544,7 +544,7 @@ function createProduct() {
         },
         {
             id: 59,
-            status: 1, 
+            status: 1,
             title: 'Hoành thánh tôm (10 viên)',
             img: './assets/img/products/hoanh_thanh.jpg',
             category: 'Món mặn',
@@ -553,7 +553,7 @@ function createProduct() {
         },
         {
             id: 60,
-            status: 1, 
+            status: 1,
             title: 'Nước ép dâu tây',
             img: './assets/img/products/nuoc-ep-dau-tay.jpg',
             category: 'Nước uống',
@@ -565,7 +565,7 @@ function createProduct() {
     }
 }
 
-// Create admin account 
+// Create admin account
 function createAdminAccount() {
     let accounts = localStorage.getItem("accounts");
     if (!accounts) {
@@ -591,6 +591,17 @@ function createAdminAccount() {
             join: new Date(),
             cart: [],
             userType: 1
+        })
+        accounts.push({
+            fullname: "Trần Nhật Quang",
+            phone: "01234",
+            password: "123456",
+            address: '',
+            email: '',
+            status: 1,
+            join: new Date(),
+            cart: [],
+            userType: 0
         })
         localStorage.setItem('accounts', JSON.stringify(accounts));
     }
