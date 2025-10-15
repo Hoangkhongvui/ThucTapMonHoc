@@ -6,8 +6,15 @@ const UserSchema = new mongoose.Schema({
     password: String,
     address: String,
     email: String,
-    status: Number,
-    join: Date,
+    status: {
+        type: Number,
+        enum: [0, 1], // 0: inactive, 1: active
+        default: 1
+    },
+    join: {
+        type: Date,
+        default: Date.now
+    },
     cart: Array,
     userType: {
         type: Number,

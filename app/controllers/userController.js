@@ -49,23 +49,27 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { phone, password } = req.body;
-    
+
         const user = await User.findOne({ phone });
         if (!user) {
             return res.redirect('/');
         }
-  
+
         if (password != user.password) {
             return res.redirect('/');
         }
-  
+
+        if (user.status === 0){
+            return res.redirect('/');
+        }
+
         req.session.user = {
             id: user._id,
             fullname: user.fullname,
             phone: user.phone,
             role: user.userType == 0 ? "user" : "admin"
         };
-  
+
         return res.redirect('/');
     } catch (error) {
         res.status(500).send('Error logging in: ' + error.message);

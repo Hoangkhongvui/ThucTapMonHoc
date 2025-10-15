@@ -9,3 +9,11 @@ for(let i = 0; i < sidebars.length; i++) {
         sections[i].classList.add("active");
     };
 }
+
+let closePopup = document.querySelectorAll(".modal-close");
+let modalPopup = document.querySelectorAll(".modal");
+for (let i = 0; i < closePopup.length; i++) {
+    closePopup[i].onclick = () => {
+        modalPopup[i].classList.remove("open");
+    };
+}

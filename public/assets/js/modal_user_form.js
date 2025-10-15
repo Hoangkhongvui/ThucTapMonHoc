@@ -1,5 +1,6 @@
 function openCreateAccount() {
     document.querySelector(".signup").classList.add("open");
+    document.querySelector(".add-user-form").action = '/admin/user/create';
     document.querySelectorAll(".edit-account-e").forEach(item => {
         item.style.display = "none"
     })
@@ -23,15 +24,39 @@ function signUpFormReset() {
 
 function editAccount(id) {
     document.querySelector(".signup").classList.add("open");
+    document.querySelector(".add-user-form").action = '/admin/user/update';
     document.querySelectorAll(".add-account-e").forEach(item => {
         item.style.display = "none"
     })
     document.querySelectorAll(".edit-account-e").forEach(item => {
         item.style.display = "block"
     })
-    let accounts = JSON.parse(localStorage.getItem("accounts"));
-    document.getElementById("fullname").value = accounts[index].fullname;
-    document.getElementById("phone").value = accounts[index].phone;
-    document.getElementById("password").value = accounts[index].password;
-    document.getElementById("user-status").checked = accounts[index].status == 1 ? true : false;
+
+    document.querySelector('input#userId').value = id;
+
+    fetch(`/admin/user/${id}`)
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch user");
+            return response.json();
+        })
+        .then(user => {
+            document.getElementById("fullname").value = user.fullname || "";
+            document.getElementById("phone").value = user.phone || "";
+            document.getElementById("password").value = user.password || "";
+            document.getElementById("userStatus").checked = user.status == 1 ? true : false;
+        })
+        .catch(error => {
+            console.error("Error fetching product:", error);
+            alert("Unable to load product data.");
+        });
+}
+
+function confirmDeletion(event) {
+    event.preventDefault();
+
+    const isConfirmed = confirm("Bạn có chắc muốn vô hiệu hóa tài khoản?");
+
+    if (isConfirmed) {
+        event.target.closest('form').submit();
+    }
 }

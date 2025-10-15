@@ -10,14 +10,6 @@ btnAddProduct.addEventListener("click", () => {
     document.querySelector('.add-product-form').action = '/admin/product/create';
 });
 
-let closePopup = document.querySelectorAll(".modal-close");
-let modalPopup = document.querySelectorAll(".modal");
-for (let i = 0; i < closePopup.length; i++) {
-    closePopup[i].onclick = () => {
-        modalPopup[i].classList.remove("open");
-    };
-}
-
 function uploadImage(el) {
     let path = "./assets/img/products/" + el.value.split("\\")[2];
     document.querySelector(".upload-image-preview").setAttribute("src", path);

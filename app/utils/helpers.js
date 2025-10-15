@@ -13,7 +13,11 @@ function formatDate(date) {
 }
 
 function userStatus(status){
-
+  if (status === 1) {
+    return 'Đang hoạt động';
+  } else {
+    return 'Vô hiệu';
+  }
 }
 
-module.exports = { vnd, formatDate };
+module.exports = { vnd, formatDate, userStatus };
