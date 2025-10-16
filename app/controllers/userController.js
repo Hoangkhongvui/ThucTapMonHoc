@@ -85,3 +85,16 @@ exports.logout = (req, res) => {
       res.redirect('/');
     });
 };
+
+exports.sessionStatus = (req, res) => {
+    if (req.session.user) {
+        res.json({
+            loggedIn: true,
+            user: req.session.user
+        });
+    } else {
+        res.json({
+            loggedIn: false
+        });
+    }
+};
