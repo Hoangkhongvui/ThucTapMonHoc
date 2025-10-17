@@ -110,14 +110,14 @@
                                 <h3>Sản phẩm</h3>
                                 <p>Sản phẩm là bất cứ cái gì có thể đưa vào thị trường để tạo sự chú ý, mua sắm, sử dụng
                                     hay tiêu dùng nhằm thỏa mãn một nhu cầu hay ước muốn. Nó có thể là những vật thể,
-                                    dịch vụ, con người, địa điểm, tổ chức hoặc một ý tưởng. 
+                                    dịch vụ, con người, địa điểm, tổ chức hoặc một ý tưởng.
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="card-single">
                         <div class="box">
-                            <h2 id="doanh-thu">$5020</h2>
+                            <h2 id="doanh-thu"><%= helpers.vnd(totalRevenue) || 0 %></h2>
                             <div class="on-box">
                                 <img src="img/admin/doanhthu.png" alt="" style=" width: 200px;">
                                 <h3>Doanh thu</h3>
@@ -134,11 +134,11 @@
             </div>
             <!-- Account  -->
             <div class="section">
-                <%- include('account') %>
+                <%- include('account', { allUsers: allUsers }) %>
             </div>
             <!-- Order  -->
             <div class="section">
-                <%- include('order') %>
+                <%- include('order', { allOrders: allOrders }) %>
             </div>
             <div class="section">
                 <%- include('statistics') %>
@@ -152,7 +152,7 @@
             <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
             <div class="modal-detail-order">
             </div>
-            <div class="modal-detail-bottom">               
+            <div class="modal-detail-bottom">
             </div>
             </form>
         </div>
@@ -175,39 +175,6 @@
                 </table>
             </div>
             </form>
-        </div>
-    </div>
-    <div class="modal signup">
-        <div class="modal-container">
-            <h3 class="modal-container-title add-account-e">THÊM KHÁCH HÀNG MỚI</h3>
-            <h3 class="modal-container-title edit-account-e">CHỈNH SỬA THÔNG TIN</h3>
-            <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
-            <div class="form-content sign-up">
-                <form action="" class="signup-form">
-                    <div class="form-group">
-                        <label for="fullname" class="form-label">Tên đầy đủ</label>
-                        <input id="fullname" name="fullname" type="text" placeholder="VD: Nhật Sinh" class="form-control">
-                        <span class="form-message-name form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại" class="form-control">
-                        <span class="form-message-phone form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Mật khẩu</label>
-                        <input id="password" name="password" type="text" placeholder="Nhập mật khẩu" class="form-control">
-                        <span class="form-message-password form-message"></span>
-                    </div>   
-                    <div class="form-group edit-account-e">
-                        <label for="" class="form-label">Trạng thái</label>
-                        <input type="checkbox" id="user-status" class="switch-input">
-                        <label for="user-status" class="switch"></label>
-                    </div>
-                    <button class="form-submit add-account-e" id="signup-button">Đăng ký</button>
-                    <button class="form-submit edit-account-e" id="btn-update-account"><i class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>
-                </form>
-            </div>
         </div>
     </div>
     </div>

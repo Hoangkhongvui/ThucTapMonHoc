@@ -1,6 +1,6 @@
 function checkLogin() {
     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
-    
+
 }
 window.onload = checkLogin();
 
@@ -71,7 +71,7 @@ document.getElementById("doanh-thu").innerHTML = vnd(getMoney());
 function vnd(price) {
     return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
-// Phân trang 
+// Phân trang
 let perPage = 12;
 let currentPage = 1;
 let totalPage = 0;
@@ -110,14 +110,14 @@ function paginationChange(page, productAll, currentPage) {
     return node;
 }
 
-// Hiển thị danh sách sản phẩm 
+// Hiển thị danh sách sản phẩm
 function showProductArr(arr) {
     let productHtml = "";
     if(arr.length == 0) {
         productHtml = `<div class="no-result"><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div><div class="no-result-h">Không có sản phẩm để hiển thị</div></div>`;
     } else {
         arr.forEach(product => {
-            let btnCtl = product.status == 1 ? 
+            let btnCtl = product.status == 1 ?
             `<button class="btn-delete" onclick="deleteProduct(${product.id})"><i class="fa-regular fa-trash"></i></button>` :
             `<button class="btn-delete" onclick="changeStatusProduct(${product.id})"><i class="fa-regular fa-eye"></i></button>`;
             productHtml += `
@@ -132,15 +132,15 @@ function showProductArr(arr) {
                 </div>
                 <div class="list-right">
                     <div class="list-price">
-                    <span class="list-current-price">${vnd(product.price)}</span>                   
+                    <span class="list-current-price">${vnd(product.price)}</span>
                     </div>
                     <div class="list-control">
                     <div class="list-tool">
                         <button class="btn-edit" onclick="editProduct(${product.id})"><i class="fa-light fa-pen-to-square"></i></button>
                         ${btnCtl}
-                    </div>                       
+                    </div>
                 </div>
-                </div> 
+                </div>
             </div>`;
         });
     }
@@ -187,7 +187,7 @@ function createId(arr) {
     }
     return id;
 }
-// Xóa sản phẩm 
+// Xóa sản phẩm
 function deleteProduct(id) {
     let products = JSON.parse(localStorage.getItem("products"));
     let index = products.findIndex(item => {
@@ -392,12 +392,12 @@ function showOrder(arr) {
             <td>${item.id}</td>
             <td>${item.khachhang}</td>
             <td>${date}</td>
-            <td>${vnd(item.tongtien)}</td>                               
+            <td>${vnd(item.tongtien)}</td>
             <td>${status}</td>
             <td class="control">
             <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-eye"></i> Chi tiết</button>
             </td>
-            </tr>      
+            </tr>
             `;
         });
     }
@@ -425,7 +425,7 @@ function detailOrder(id) {
     document.querySelector(".modal.detail-order").classList.add("open");
     let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
     let products = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("products")) : [];
-    // Lấy hóa đơn 
+    // Lấy hóa đơn
     let order = orders.find((item) => item.id == id);
     // Lấy chi tiết hóa đơn
     let ctDon = getOrderDetails(id);
@@ -445,7 +445,7 @@ function detailOrder(id) {
             <div class="order-product-right">
                 <div class="order-product-price">
                     <span class="order-product-current-price">${vnd(item.price)}</span>
-                </div>                         
+                </div>
             </div>
         </div>`;
     });
@@ -505,7 +505,7 @@ function findOrder() {
     let ct = document.getElementById("form-search-order").value;
     let timeStart = document.getElementById("time-start").value;
     let timeEnd = document.getElementById("time-end").value;
-    
+
     if (timeEnd < timeStart && timeEnd != "" && timeStart != "") {
         alert("Lựa chọn thời gian sai !");
         return;
@@ -547,8 +547,8 @@ function cancelSearchOrder(){
 // Create Object Thong ke
 function createObj() {
     let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
-    let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : []; 
-    let orderDetails = localStorage.getItem("orderDetails") ? JSON.parse(localStorage.getItem("orderDetails")) : []; 
+    let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
+    let orderDetails = localStorage.getItem("orderDetails") ? JSON.parse(localStorage.getItem("orderDetails")) : [];
     let result = [];
     orderDetails.forEach(item => {
         // Lấy thông tin sản phẩm
@@ -567,7 +567,7 @@ function createObj() {
     return result;
 }
 
-// Filter 
+// Filter
 function thongKe(mode) {
     let categoryTk = document.getElementById("the-loai-tk").value;
     let ct = document.getElementById("form-search-tk").value;
@@ -599,7 +599,7 @@ function thongKe(mode) {
             return (new Date(item.time) > new Date(timeStart).setHours(0, 0, 0) && new Date(item.time) < new Date(timeEnd).setHours(23, 59, 59)
             );
         });
-    }    
+    }
     showThongKe(result,mode);
 }
 
@@ -639,13 +639,13 @@ function showThongKe(arr,mode) {
         <td>${mergeObj[i].quantity}</td>
         <td>${vnd(mergeObj[i].doanhthu)}</td>
         <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
-        </tr>      
+        </tr>
         `;
     }
     document.getElementById("showTk").innerHTML = orderHtml;
     document.querySelectorAll(".product-order-detail").forEach(item => {
         let idProduct = item.getAttribute("data-id");
-        item.addEventListener("click", () => {           
+        item.addEventListener("click", () => {
             detailOrderProduct(arr,idProduct);
         })
     })
@@ -666,7 +666,7 @@ function mergeObjThongKe(arr) {
             newItem.doanhthu = newItem.price * newItem.quantity;
             result.push(newItem);
         }
-        
+
     });
     return result;
 }
@@ -680,7 +680,7 @@ function detailOrderProduct(arr,id) {
             <td>${item.quantity}</td>
             <td>${vnd(item.price)}</td>
             <td>${formatDate(item.time)}</td>
-            </tr>      
+            </tr>
             `;
         }
     });
@@ -845,7 +845,7 @@ addAccount.addEventListener("click", (e) => {
         let formMessageName = document.querySelector('.form-message-name');
         let formMessagePhone = document.querySelector('.form-message-phone');
         let formMessagePassword = document.querySelector('.form-message-password');
-    
+
         if (fullNameUser.length == 0) {
             formMessageName.innerHTML = 'Vui lòng nhập họ vâ tên';
             fullNameIP.focus();
@@ -853,14 +853,14 @@ addAccount.addEventListener("click", (e) => {
             fullNameIP.value = '';
             formMessageName.innerHTML = 'Vui lòng nhập họ và tên lớn hơn 3 kí tự';
         }
-        
+
         if (phoneUser.length == 0) {
             formMessagePhone.innerHTML = 'Vui lòng nhập vào số điện thoại';
         } else if (phoneUser.length != 10) {
             formMessagePhone.innerHTML = 'Vui lòng nhập vào số điện thoại 10 số';
             document.getElementById('phone').value = '';
         }
-        
+
         if (passwordUser.length == 0) {
             formMessagePassword.innerHTML = 'Vui lòng nhập mật khẩu';
         } else if (passwordUser.length < 6) {

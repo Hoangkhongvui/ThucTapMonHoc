@@ -23,10 +23,23 @@
                 <label for="time-end">Đến</label>
                 <input type="date" class="form-control-date" id="time-end" onchange="findOrder()">
             </div>
-        </form>      
-        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i class="fa-light fa-arrow-rotate-right"></i></button>               
+        </form>
+        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i class="fa-light fa-arrow-rotate-right"></i></button>
     </div>
 </div>
+
+<div class="modal detail-order">
+    <div class="modal-container">
+        <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>
+        <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
+        <div class="modal-detail-order">
+        </div>
+        <div class="modal-detail-bottom">
+        </div>
+        </form>
+    </div>
+</div>
+
 <div class="table">
     <table width="100%">
         <thead>
@@ -40,6 +53,31 @@
             </tr>
         </thead>
         <tbody id="showOrder">
+            <% allOrders.forEach((item) => { %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.khachhang.fullname %></td>
+                    <td><%= new Date(item.createdAt).toLocaleString('vi-VN') %></td>
+                    <td><%= helpers.vnd(item.tongtien) %></td>
+                    <td>
+                        <% if (item.trangthai === 0) { %>
+                            <span class="status pending">Đang xử lý</span>
+                        <% } else if (item.trangthai === 1) { %>
+                            <span class="status success">Hoàn thành</span>
+                        <% } else { %>
+                            <span class="status cancelled">Đang thanh toán</span>
+                        <% } %>
+                    </td>
+                    <td class="control">
+                        <button class="btn-detail" onclick="detailOrder('<%= item._id %>')">
+                            <i class="fa-regular fa-eye"></i> Chi tiết
+                        </button>
+                    </td>
+                </tr>
+            <% }); %>
         </tbody>
     </table>
 </div>
+
+<script src="js/manage_order.js"></script>
+<script src="js/helpers.js"></script>

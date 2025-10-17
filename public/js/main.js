@@ -3,7 +3,7 @@ function vnd(price) {
     return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
-// Close popup 
+// Close popup
 const body = document.querySelector("body");
 let modalContainer = document.querySelectorAll('.modal');
 let modalBox = document.querySelectorAll('.mdl-cnt');
@@ -228,7 +228,7 @@ function getCartTotal() {
     return tongtien;
 }
 
-// Get Product 
+// Get Product
 function getProduct(item) {
     let products = JSON.parse(localStorage.getItem('products'));
     let infoProductCart = products.find(sp => item.id == sp.id)
@@ -253,7 +253,7 @@ function getAmountCart() {
     return amount;
 }
 
-//Update Amount Cart 
+//Update Amount Cart
 function updateAmount() {
     if (localStorage.getItem('currentuser') != null) {
         let amount = getAmountCart();
@@ -308,7 +308,7 @@ function closeSearchAdvanced() {
     document.querySelector(".advanced-search").classList.toggle("open");
 }
 
-//Open Search Mobile 
+//Open Search Mobile
 function openSearchMb() {
     document.querySelector(".header-middle-left").style.display = "none";
     document.querySelector(".header-middle-center").style.display = "block";
@@ -319,7 +319,7 @@ function openSearchMb() {
     }
 }
 
-//Close Search Mobile 
+//Close Search Mobile
 function closeSearchMb() {
     document.querySelector(".header-middle-left").style.display = "block";
     document.querySelector(".header-middle-center").style.display = "none";
@@ -332,7 +332,7 @@ function closeSearchMb() {
 
 //Signup && Login Form
 
-// Chuyen doi qua lai SignUp & Login 
+// Chuyen doi qua lai SignUp & Login
 let signup = document.querySelector('.signup-link');
 let login = document.querySelector('.login-link');
 let container = document.querySelector('.signup-login .modal-container');
@@ -526,7 +526,7 @@ function checkAdmin() {
         let node = document.createElement(`li`);
         node.innerHTML = `<a href="./admin.html"><i class="fa-light fa-gear"></i> Quản lý cửa hàng</a>`
         document.querySelector('.header-middle-right-menu').prepend(node);
-    } 
+    }
 }
 
 window.onload = kiemtradangnhap();
@@ -541,7 +541,7 @@ function myAccount() {
     userInfo();
 }
 
-// Chuyển đổi trang chủ và trang xem lịch sử đặt hàng 
+// Chuyển đổi trang chủ và trang xem lịch sử đặt hàng
 function orderHistory() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('account-user').classList.remove('open');
@@ -601,7 +601,7 @@ function changeInformation() {
     toast({ title: 'Success', message: 'Cập nhật thông tin thành công !', type: 'success', duration: 3000 });
 }
 
-// Đổi mật khẩu 
+// Đổi mật khẩu
 function changePassword() {
     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
     let passwordCur = document.getElementById('password-cur-info');
@@ -706,7 +706,7 @@ function renderOrderProduct() {
                     <div class="order-history-right">
                         <div class="order-history-price">
                             <span class="order-history-current-price">${vnd(sp.price)}</span>
-                        </div>                         
+                        </div>
                     </div>
                 </div>`;
             });
@@ -788,7 +788,7 @@ function detailOrder(id) {
     document.querySelector(".detail-order-content").innerHTML = detailOrderHtml;
 }
 
-// Create id order 
+// Create id order
 function createId(arr) {
     let id = arr.length + 1;
     let check = arr.find(item => item.id == "DH" + id)
@@ -850,7 +850,7 @@ function renderProducts(showProduct) {
                         </div>
                     <div class="product-buy">
                         <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-solid fa-truck-fast"></i> Đặt món</button>
-                    </div> 
+                    </div>
                 </div>
                 </div>
             </article>
@@ -906,7 +906,7 @@ function searchProducts(mode) {
     showHomeProduct(result)
 }
 
-// Phân trang 
+// Phân trang
 let perPage = 12;
 let currentPage = 1;
 let totalPage = 0;
@@ -967,5 +967,3 @@ function showCategory(category) {
     setupPagination(productSearch, perPage, currentPageSeach);
     document.getElementById("home-title").scrollIntoView();
 }
-
-

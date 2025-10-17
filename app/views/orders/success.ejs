@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Thành Công</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Khai báo biến CSS để dễ dàng thay đổi theme */
+        :root {
+            --primary-color: #28a745; /* Màu xanh lá cây - thành công */
+            --secondary-color: #007bff; /* Màu xanh dương - loading */
+            --text-color: #333;
+            --light-text: #6c757d;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --redirect-time: 5s; /* Thời gian chuyển hướng/loading */
+        }
+
+        /* Cài đặt chung */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Vùng chứa chính */
+        .success-container {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Icon */
+        .icon-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: var(--primary-color);
+            animation: iconZoom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform: scale(0);
+        }
+
+        /* Khung tóm tắt thông tin */
+        .summary-box {
+            background-color: #f0f8ff; /* Light blue background */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e9f0;
+        }
+
+        /* --------------------
+        Thanh Loading
+        -------------------- */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin: 20px auto 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+            /* Kích hoạt animation với thời gian đã định nghĩa trong biến CSS */
+            animation: loadProgress var(--redirect-time) linear forwards;
+        }
+
+        /* Các nút hành động */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .action-buttons.disabled {
+            opacity: 0.5;
+            pointer-events: none; /* Vô hiệu hóa click khi đang loading */
+            /* Hiệu ứng trôi nhẹ khi loading kết thúc */
+            transform: translateY(10px);
+        }
+
+        .action-buttons:not(.disabled) {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+
+        /* --------------------
+        Hiệu ứng động (Animations)
+        -------------------- */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes iconZoom {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Animation chính cho thanh loading */
+        @keyframes loadProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        /* Responsive */
+        @media (min-width: 600px) {
+            .action-buttons {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .btn {
+                flex: 1;
+            }
+            .btn:first-child {
+                margin-right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="icon-wrapper">
+            <i class="fas fa-check-circle success-icon"></i>
+            <div class="confetti-effect"></div>
+        </div>
+
+        <h1 class="main-title">Thanh Toán Thành Công! </h1>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+
+        <p class="message-text details">Trang sẽ tự động chuyển về Trang chủ sau <span id="countdown">5</span> giây.</p>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Khai báo các hằng số
+            const REDIRECT_TIME_SECONDS = 5; // Phải khớp với --redirect-time trong CSS (5s)
+            const HOMEPAGE_URL = '/'; // Thay thế bằng đường dẫn Trang chủ thực tế
+
+            // Lấy các phần tử DOM
+            const progressBar = document.getElementById('progressBar');
+            const actionButtons = document.querySelector('.action-buttons');
+            const countdownSpan = document.getElementById('countdown');
+
+            // 1. Logic Đếm Ngược Thời Gian
+            let countdown = REDIRECT_TIME_SECONDS;
+            if (countdownSpan) {
+                countdownSpan.textContent = countdown;
+            }
+
+            const interval = setInterval(() => {
+                countdown -= 1;
+                if (countdownSpan) {
+                    countdownSpan.textContent = countdown;
+                }
+
+                // Dừng đếm ngược khi hết giờ
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                }
+            }, 1000); // Đếm ngược mỗi 1 giây
+
+            // 2. Logic Thanh Loading và Chuyển Hướng Tự Động
+
+            // BƯỚC KHẮC PHỤC LỖI "Cannot read properties of null":
+            // Luôn kiểm tra xem phần tử có tồn tại (khác null) trước khi gọi addEventListener
+            if (progressBar) {
+
+                // Lắng nghe sự kiện khi animation loadProgress kết thúc
+                progressBar.addEventListener('animationend', () => {
+                    console.log('Thanh loading đã hoàn thành. Chuyển hướng sau 1 giây.');
+
+                    // Kích hoạt các nút sau khi loading kết thúc (Tùy chọn)
+                    if (actionButtons) {
+                        actionButtons.classList.remove('disabled');
+                    }
+
+                    // Đợi 1 giây để người dùng kịp nhìn thấy thanh loading đầy 100%
+                    setTimeout(() => {
+                        // *** THỰC HIỆN CHUYỂN HƯỚNG ***
+                        window.location.href = HOMEPAGE_URL;
+
+                        // Thay thế bằng console log cho mục đích demo
+                        console.log(`Đã tự động chuyển về trang chủ: ${HOMEPAGE_URL}`);
+
+                        // window.location.href = e.currentTarget.id === 'viewOrderBtn' ? '/order/ORD-123456' : HOMEPAGE_URL;
+
+                    }, 1000); // 1000ms = 1 giây
+                });
+            }
+
+            // 3. Logic Vô hiệu hóa/Kích hoạt các nút thủ công (Phòng trường hợp người dùng click ngay)
+            const handleButtonClick = (e) => {
+                // Nếu người dùng cố gắng click trước khi chuyển hướng
+                if (progressBar && progressBar.style.animationPlayState !== 'paused') {
+                    alert('Đang trong quá trình chuyển hướng tự động, bạn có thể click để dừng tiến trình.');
+                    // Tùy chọn: Dừng animation nếu người dùng click
+                    progressBar.style.animationPlayState = 'paused';
+                    clearInterval(interval);
+                }
+
+                // Chuyển hướng thủ công (nếu không muốn đợi tự động)
+                // window.location.href = e.currentTarget.id === 'viewOrderBtn' ? '/order/ORD-123456' : HOMEPAGE_URL;
+                console.log(`Chuyển hướng thủ công đến ${e.currentTarget.id}`);
+            };
+
+            const viewOrderBtn = document.getElementById('viewOrderBtn');
+            const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+
+            if (viewOrderBtn) viewOrderBtn.addEventListener('click', handleButtonClick);
+            if (continueShoppingBtn) continueShoppingBtn.addEventListener('click', handleButtonClick);
+        });
+    </script>
+</body>
+</html>
