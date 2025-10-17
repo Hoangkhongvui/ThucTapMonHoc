@@ -1,20 +1,26 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
+const Order = require('../models/Order');
 
 exports.index = async (req, res) => {
     try {
         const user = req.session.user;
-        const totalUser = await User.countDocuments();
-        const totalProduct = await Product.countDocuments({ status: { $ne: 0 } });
-        // const allProducts = await Product.find().sort({ id: -1 });
         const allProducts = await Product.find({ status: { $ne: 0 } }).sort({ id: -1 });
         const allUsers = await User.find();
+        const allOrders = await Order.find().populate('khachhang', 'fullname')
+                                .sort({ createdAt: -1 })
+                                .lean();
+        const totalUser = await User.countDocuments();
+        const totalProduct = await Product.countDocuments({ status: { $ne: 0 } });
+        const totalRevenue = allOrders.reduce((sum, order) => sum + order.tongtien, 0);
         res.render('admin/index', {
             user,
             totalUser,
             totalProduct,
+            totalRevenue,
             allProducts,
-            allUsers
+            allUsers,
+            allOrders
         });
     } catch (error) {
         res.status(500).send('Error couting users and products');

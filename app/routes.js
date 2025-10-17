@@ -35,6 +35,10 @@ router.post('/cart/add', cartController.addToCart);
 router.post('/cart/remove', cartController.removeFromCart);
 
 router.get('/order/new', orderController.newOrder);
+router.get('/order/:id', orderController.getOrder);
+router.patch('/order/:id/status', orderController.updateStatusOrder);
 router.post('/order/create', orderController.createOrder);
+router.post('/order/create-vnpay', orderController.createOrderVNPay);
+router.get('/order-success', orderController.orderSuccess);
 
 module.exports = router;

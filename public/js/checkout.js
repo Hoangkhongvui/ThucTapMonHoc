@@ -39,20 +39,20 @@ function thanhtoanpage(option,product) {
             showProductCart();
             // Tinh tien
             totalBillOrderHtml = `<div class="priceFlx">
-            <div class="text">
-                Tiền hàng 
-                <span class="count">${getAmountCart()} món</span>
+                <div class="text">
+                    Tiền hàng
+                    <span class="count">${getAmountCart()} món</span>
+                </div>
+                <div class="price-detail">
+                    <span id="checkout-cart-total">${vnd(getCartTotal())}</span>
+                </div>
             </div>
-            <div class="price-detail">
-                <span id="checkout-cart-total">${vnd(getCartTotal())}</span>
-            </div>
-        </div>
-        <div class="priceFlx chk-ship">
-            <div class="text">Phí vận chuyển</div>
-            <div class="price-detail chk-free-ship">
-                <span>${vnd(PHIVANCHUYEN)}</span>
-            </div>
-        </div>`;
+            <div class="priceFlx chk-ship">
+                <div class="text">Phí vận chuyển</div>
+                <div class="price-detail chk-free-ship">
+                    <span>${vnd(PHIVANCHUYEN)}</span>
+                </div>
+            </div>`;
             // Tong tien
             priceFinal.innerText = vnd(getCartTotal() + PHIVANCHUYEN);
             break;
@@ -62,7 +62,7 @@ function thanhtoanpage(option,product) {
             // Tinh tien
             totalBillOrderHtml = `<div class="priceFlx">
                 <div class="text">
-                    Tiền hàng 
+                    Tiền hàng
                     <span class="count">${product.soluong} món</span>
                 </div>
                 <div class="price-detail">
@@ -88,7 +88,7 @@ function thanhtoanpage(option,product) {
     let tudenlay = document.querySelector('#tudenlay');
     let tudenlayGroup = document.querySelector('#tudenlay-group');
     let chkShip = document.querySelectorAll(".chk-ship");
-    
+
     tudenlay.addEventListener('click', () => {
         giaotannoi.classList.remove("active");
         tudenlay.classList.add("active");
@@ -257,8 +257,8 @@ function xulyDathang(product) {
         product.price = getpriceProduct(product.id);
         tongtien += product.price * product.soluong;
         orderDetails.push(product);
-    }   
-    
+    }
+
     let tennguoinhan = document.querySelector("#tennguoinhan").value;
     let sdtnhan = document.querySelector("#sdtnhan").value
 
@@ -279,19 +279,19 @@ function xulyDathang(product) {
             tongtien:tongtien,
             trangthai: 0
         }
-    
+
         order.unshift(donhang);
         if(product == null) {
             currentUser.cart.length = 0;
         }
-    
+
         localStorage.setItem("order",JSON.stringify(order));
         localStorage.setItem("currentuser",JSON.stringify(currentUser));
         localStorage.setItem("orderDetails",JSON.stringify(orderDetails));
         toast({ title: 'Thành công', message: 'Đặt hàng thành công !', type: 'success', duration: 1000 });
         setTimeout((e)=>{
             window.location = "/";
-        },2000);  
+        },2000);
     }
 }
 

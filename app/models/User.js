@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product'
         },
+        title: {type: String, default: ""},
         quantity: { type: Number, default: 1 },
         note: { type: String, default: "" }
     }],
@@ -29,14 +30,5 @@ const UserSchema = new mongoose.Schema({
         default: 0
     }
 });
-
-// UserSchema.virtual('populatedCart', {
-//     ref: 'Product',
-//     localField: 'cart.productId',
-//     foreignField: 'id',
-// });
-
-// UserSchema.set('toJSON', { virtuals: true });
-// UserSchema.set('toObject', { virtuals: true });
 
 module.exports = mongoose.model("User", UserSchema);

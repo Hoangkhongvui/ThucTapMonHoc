@@ -189,7 +189,7 @@ header {
     background-color: var(--white);
     position: sticky;
     top:0;
-    z-index: 15;    
+    z-index: 15;
 }
 
 .header-top {
@@ -432,7 +432,7 @@ header {
     border-top: 1px solid #eee;
 }
 
-.header-bottom{ 
+.header-bottom{
     transition: transform 0.6s ease;
     position: fixed;
     left: 0;
@@ -597,7 +597,7 @@ header {
 
 .home-service-item{
     box-shadow: 0px 1px 9px 2px #f1f1f1;
-    width: 25%;   
+    width: 25%;
     display: flex;
     padding: 20px;
     align-items: center;
@@ -2264,7 +2264,7 @@ input[type=number] {
     color: #629050;
 }
 
-.complete-checkout-btn {
+.complete-checkout-btn, .checkout-vnpay-btn {
     width: 100%;
     height: 40px;
     outline: none;
@@ -2311,4 +2311,3 @@ input[type=number] {
 .header-middle-right-item.close{
     display: none;
 }
-

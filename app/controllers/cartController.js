@@ -45,7 +45,7 @@ exports.addToCart = async (req, res) => {
         if (cartItemIndex > -1) {
             user.cart[cartItemIndex].quantity += quantity;
         } else {
-            user.cart.push({ productId: product._id, quantity, note });
+            user.cart.push({ productId: product._id, title: product.title, quantity, note });
         }
         const updatedUser = await user.save();
         res.status(200).json({

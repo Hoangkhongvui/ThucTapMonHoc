@@ -117,7 +117,7 @@
                     </div>
                     <div class="card-single">
                         <div class="box">
-                            <h2 id="doanh-thu">$5020</h2>
+                            <h2 id="doanh-thu"><%= helpers.vnd(totalRevenue) || 0 %></h2>
                             <div class="on-box">
                                 <img src="img/admin/doanhthu.png" alt="" style=" width: 200px;">
                                 <h3>Doanh thu</h3>
@@ -138,7 +138,7 @@
             </div>
             <!-- Order  -->
             <div class="section">
-                <%- include('order') %>
+                <%- include('order', { allOrders: allOrders }) %>
             </div>
             <div class="section">
                 <%- include('statistics') %>

@@ -18,6 +18,10 @@ const OrderSchema = new Schema({
             ref: 'Product',
             required: true
         },
+        title: {
+            type: String,
+            default: ""
+        },
         quantity: {
             type: Number,
             required: true,
@@ -42,7 +46,7 @@ const OrderSchema = new Schema({
     },
     diachinhan: {
         type: String,
-        required: true
+        required: false
     },
     ghichu: {
         type: String,
@@ -63,19 +67,28 @@ const OrderSchema = new Schema({
         default: 'Giao ngay khi xong'
     },
     ngaygiaohang: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     trangthai: {
         type: Number,
-        enum: [0, 1],
+        enum: [0, 1, 2], // Đang xử lý, Hoàn thành, Đang thanh toán
         default: 0
     },
     thoigiandat: {
         type: Date,
         default: Date.now
+    },
+    phuongthucthanhtoan: {
+        type: String,
+        enum: ["Tiền mặt", "VNPAY"],
+        default: "Tiền mặt"
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Order', OrderSchema);
+const Order = mongoose.model('Order', OrderSchema);
+
+Order.SHIPPING_FEE = 30000;
+module.exports = Order;
