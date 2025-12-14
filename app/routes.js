@@ -24,6 +24,7 @@ router.post('/admin/user/create', adminController.createUser);
 router.get('/admin/user/:id', adminController.getUser);
 router.post('/admin/user/update', adminController.updateUser);
 router.post('/user/status', adminController.updateUserStatus);
+router.get('/statistic/product/:productId', adminController.getOrdersByProduct);
 
 router.post('/admin/product/create', upload.single('image'), productController.createProduct);
 router.get('/admin/product/:id', productController.getProduct);

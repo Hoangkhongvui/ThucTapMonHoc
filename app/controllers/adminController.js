@@ -1,10 +1,11 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
+const mongoose = require("mongoose");
 
 exports.index = async (req, res) => {
     try {
-        const user = req.session.user;
+        const currentUser = req.session.user;
         const allProducts = await Product.find({ status: { $ne: 0 } }).sort({ id: -1 });
         const allUsers = await User.find();
         const allOrders = await Order.find().populate('khachhang', 'fullname')
@@ -13,16 +14,76 @@ exports.index = async (req, res) => {
         const totalUser = await User.countDocuments();
         const totalProduct = await Product.countDocuments({ status: { $ne: 0 } });
         const totalRevenue = allOrders.reduce((sum, order) => sum + order.tongtien, 0);
+        const summaryAllOrder = await Order.aggregate([
+            {
+                $match: { trangthai: 1 }
+            },
+            {
+                $facet: {
+                    totalQuantity: [
+                        { $unwind: "$products" },
+                        {
+                            $group: {
+                                _id: null,
+                                totalSold: { $sum: "$products.quantity" }
+                            }
+                        }
+                    ],
+                    totalRevenue: [
+                        {
+                            $group: {
+                                _id: null,
+                                totalMoney: { $sum: "$tongtien" }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]);
+        const soldByProduct = await Order.aggregate([
+            { $match: { trangthai: 1 } },
+            { $unwind: "$products" },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "products.productId",
+                    foreignField: "_id",
+                    as: "productInfo"
+                }
+            },
+            { $unwind: "$productInfo" },
+            {
+                $group: {
+                    _id: "$products.productId",
+                    title: { $first: "$products.title" },
+                    image: { $first: "$productInfo.img"},
+                    category: { $first: "$productInfo.category"},
+                    price: { $first: "$productInfo.price"},
+                    totalSold: { $sum: "$products.quantity" },
+                    totalMoney: {
+                        $sum: {
+                            $multiply: ["$products.quantity", "$products.price"]
+                        }
+                    }
+                }
+            },
+            { $sort: { totalSold: -1 } }
+        ]);
+
         res.render('admin/index', {
-            user,
+            currentUser,
             totalUser,
             totalProduct,
             totalRevenue,
             allProducts,
             allUsers,
-            allOrders
+            allOrders,
+            totalSold: summaryAllOrder[0].totalQuantity[0]?.totalSold || 0,
+            totalMoney: summaryAllOrder[0].totalRevenue[0]?.totalMoney || 0,
+            soldByProduct
         });
     } catch (error) {
+        console.log(error);
         res.status(500).send('Error couting users and products');
     }
 };
@@ -110,3 +171,56 @@ exports.updateUserStatus = async(req, res) => {
         res.status(500).send('Server error');
     }
 }
+
+exports.getOrdersByProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({
+        success: false,
+        message: "productId không hợp lệ"
+      });
+    }
+
+    const orders = await Order.aggregate([
+      {
+        $match: {
+            trangthai: 1,
+            "products.productId": new mongoose.Types.ObjectId(productId)
+        }
+      },
+      { $unwind: "$products" },
+      {
+        $match: {
+          "products.productId": new mongoose.Types.ObjectId(productId)
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          orderId: "$id",
+          quantity: "$products.quantity",
+          price: "$products.price",
+          orderDate: "$thoigiandat"
+        }
+      },
+      {
+        $sort: { orderDate: -1 }
+      }
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      totalOrders: orders.length,
+      data: orders
+    });
+
+  } catch (error) {
+    console.error("Error getOrdersByProduct:", error);
+    res.status(500).json({
+      success: false,
+      message: "Lỗi server"
+    });
+  }
+};

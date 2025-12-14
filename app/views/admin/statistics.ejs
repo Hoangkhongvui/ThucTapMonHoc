@@ -19,7 +19,7 @@
         </form>
     </div>
     <div class="admin-control-right">
-        <form action="" class="fillter-date">
+        <!-- <form action="" class="fillter-date">
             <div>
                 <label for="time-start">Từ</label>
                 <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
@@ -28,17 +28,17 @@
                 <label for="time-end">Đến</label>
                 <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
             </div>
-        </form> 
+        </form> -->
         <button class="btn-reset-order" onclick="thongKe(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></i></button>
         <button class="btn-reset-order" onclick="thongKe(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
-        <button class="btn-reset-order" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i></button>                    
+        <button class="btn-reset-order" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i></button>
     </div>
 </div>
 <div class="order-statistical" id="order-statistical">
     <div class="order-statistical-item">
         <div class="order-statistical-item-content">
             <p class="order-statistical-item-content-desc">Sản phẩm được bán ra</p>
-            <h4 class="order-statistical-item-content-h" id="quantity-product"></h4>
+            <h4 class="order-statistical-item-content-h" id="quantity-product"><%= totalSold %></h4>
         </div>
         <div class="order-statistical-item-icon">
             <i class="fa-light fa-salad"></i>
@@ -47,7 +47,7 @@
     <div class="order-statistical-item">
         <div class="order-statistical-item-content">
             <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
-            <h4 class="order-statistical-item-content-h" id="quantity-order"></h4>
+            <h4 class="order-statistical-item-content-h" id="quantity-order"><%= totalSold %></h4>
         </div>
         <div class="order-statistical-item-icon">
             <i class="fa-light fa-file-lines"></i>
@@ -56,7 +56,7 @@
     <div class="order-statistical-item">
         <div class="order-statistical-item-content">
             <p class="order-statistical-item-content-desc">Doanh thu</p>
-            <h4 class="order-statistical-item-content-h" id="quantity-sale"></h4>
+            <h4 class="order-statistical-item-content-h" id="quantity-sale"><%= helpers.vnd(totalMoney) %></h4>
         </div>
         <div class="order-statistical-item-icon">
             <i class="fa-light fa-dollar-sign"></i>
@@ -64,17 +64,56 @@
     </div>
 </div>
 <div class="table">
-    <table width="100%">
-        <thead>
-            <tr>
-                <td>STT</td>
-                <td>Tên món</td>
-                <td>Số lượng bán</td>
-                <td>Doanh thu</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody id="showTk">
-        </tbody>
-    </table>
+    <% if (soldByProduct.length > 0) { %>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>STT</td>
+                    <td>Tên món</td>
+                    <td>Số lượng bán</td>
+                    <td>Doanh thu</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="showTk">
+                <% soldByProduct.forEach((product, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><div class="prod-img-title"><img class="prd-img-tbl" src="<%= product.image %>" alt=""><p><%= product.title %></p></div></td>
+                        <td><%= product.totalSold %></td>
+                        <td><%= helpers.vnd(product.totalMoney) %></td>
+                        <td><button class="btn-detail product-order-detail" data-id="<%= product._id %>"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <div class="no-result"><div class="no-result-i"><i class="fa-light fa-face-sad-cry"></i></div><div class="no-result-h">Không có người dùng để hiển thị</div></div>
+    <% } %>
+
+    <div class="modal detail-order-product">
+        <div class="modal-container">
+            <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
+            <div class="table">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>Mã đơn</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td>Ngày đặt</td>
+                        </tr>
+                    </thead>
+                    <tbody id="show-product-order-detail">
+                    </tbody>
+                </table>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<script>
+    window.soldProducts = <%- JSON.stringify(soldByProduct) %>;
+</script>
+<script src="js/manage_statistic.js"></script>

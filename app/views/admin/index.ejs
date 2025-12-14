@@ -140,8 +140,9 @@
             <div class="section">
                 <%- include('order', { allOrders: allOrders }) %>
             </div>
+            <!-- Statistic -->
             <div class="section">
-                <%- include('statistics') %>
+                <%- include('statistics', { totalSold: totalSold, totalMoney: totalMoney, soldByProduct: soldByProduct }) %>
             </div>
         </main>
     </div>
@@ -153,26 +154,6 @@
             <div class="modal-detail-order">
             </div>
             <div class="modal-detail-bottom">
-            </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal detail-order-product">
-        <div class="modal-container">
-            <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
-            <div class="table">
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <td>Mã đơn</td>
-                            <td>Số lượng</td>
-                            <td>Đơn giá</td>
-                            <td>Ngày đặt</td>
-                        </tr>
-                    </thead>
-                    <tbody id="show-product-order-detail">
-                    </tbody>
-                </table>
             </div>
             </form>
         </div>

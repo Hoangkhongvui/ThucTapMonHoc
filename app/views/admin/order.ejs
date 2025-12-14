@@ -2,7 +2,8 @@
 <div class="admin-control">
     <div class="admin-control-left">
         <select name="tinh-trang" id="tinh-trang" onchange="findOrder()">
-            <option value="2">Tất cả</option>
+            <option value="3">Tất cả</option>
+            <option value="2">Đang thanh toán</option>
             <option value="1">Đã xử lý</option>
             <option value="0">Chưa xử lý</option>
         </select>
@@ -79,5 +80,8 @@
     </table>
 </div>
 
+<script>
+    window.orders = <%- JSON.stringify(allOrders) %>;
+</script>
 <script src="js/manage_order.js"></script>
 <script src="js/helpers.js"></script>

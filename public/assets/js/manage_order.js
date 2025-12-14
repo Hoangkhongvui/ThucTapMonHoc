@@ -119,3 +119,77 @@ async function updateStatus(id) {
         alert("Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.");
     }
 }
+
+function showOrder(arr) {
+    let orderHtml = "";
+    if(arr.length == 0) {
+        orderHtml = `<td colspan="6">Không có dữ liệu</td>`
+    } else {
+        arr.forEach((item) => {
+            let status = item.trangthai === 0
+                ? `<span class="status-processing">Đang xử lý</span>`
+                : item.trangthai === 1
+                    ? `<span class="status-complete">Hoàn thành</span>`
+                    : `<span class="status-pending">Đang thanh toán</span>`;
+
+            let date = formatDate(item.thoigiandat);
+            orderHtml += `
+            <tr>
+            <td>${item.id}</td>
+            <td>${item.khachhang.fullname}</td>
+            <td>${date}</td>
+            <td>${vnd(item.tongtien)}</td>
+            <td>${status}</td>
+            <td class="control">
+            <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-eye"></i> Chi tiết</button>
+            </td>
+            </tr>
+            `;
+        });
+    }
+    document.getElementById("showOrder").innerHTML = orderHtml;
+}
+
+function findOrder() {
+    let tinhTrang = parseInt(document.getElementById("tinh-trang").value);
+    let ct = document.getElementById("form-search-order").value;
+    let timeStart = document.getElementById("time-start").value;
+    let timeEnd = document.getElementById("time-end").value;
+
+    if (timeEnd < timeStart && timeEnd != "" && timeStart != "") {
+        alert("Lựa chọn thời gian sai !");
+        return;
+    }
+    // let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
+    let result = tinhTrang == 3 ? orders : orders.filter((item) => {
+        return item.trangthai == tinhTrang;
+    });
+    result = ct == "" ? result : result.filter((item) => {
+        return (item.khachhang.fullname.toLowerCase().includes(ct.toLowerCase()) || item.id.toString().toLowerCase().includes(ct.toLowerCase()));
+    });
+
+    if (timeStart != "" && timeEnd == "") {
+        result = result.filter((item) => {
+            return new Date(item.thoigiandat) >= new Date(timeStart).setHours(0, 0, 0);
+        });
+    } else if (timeStart == "" && timeEnd != "") {
+        result = result.filter((item) => {
+            return new Date(item.thoigiandat) <= new Date(timeEnd).setHours(23, 59, 59);
+        });
+    } else if (timeStart != "" && timeEnd != "") {
+        result = result.filter((item) => {
+            return (new Date(item.thoigiandat) >= new Date(timeStart).setHours(0, 0, 0) && new Date(item.thoigiandat) <= new Date(timeEnd).setHours(23, 59, 59)
+            );
+        });
+    }
+    showOrder(result);
+}
+
+function cancelSearchOrder(){
+    // let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
+    document.getElementById("tinh-trang").value = 3;
+    document.getElementById("form-search-order").value = "";
+    document.getElementById("time-start").value = "";
+    document.getElementById("time-end").value = "";
+    showOrder(orders);
+}
