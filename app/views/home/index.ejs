@@ -41,10 +41,14 @@
                     </div>
                 </div>
                 <div class="header-middle-center">
-                    <form action="" class="form-search">
+                    <form action="/search" method="GET" class="form-search">
                         <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
-                        <input type="text" class="form-search-input" placeholder="Tìm kiếm món ăn..."
-                            oninput="searchProducts()">
+                        <input
+                            type="text"
+                            name="keyword"
+                            class="form-search-input"
+                            oninput="searchProducts()"
+                            placeholder="Tìm kiếm món ăn...">
                         <button class="filter-btn"><i class="fa-light fa-filter-list"></i><span>Lọc</span></button>
                     </form>
                 </div>
