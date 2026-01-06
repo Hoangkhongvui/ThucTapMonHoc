@@ -113,3 +113,61 @@ exports.removeFromCart = async (req, res) => {
         res.status(500).json({ success: false, message: 'Lỗi khi xóa sản phẩm khỏi giỏ hàng.' });
     }
 }
+
+exports.buyNow = async (req, res) => {
+  try {
+    const { userId, productId, quantity = 1, note = "" } = req.body;
+
+    if (!userId || !productId) {
+      return res.status(400).json({
+        success: false,
+        message: "Thiếu userId hoặc productId"
+      });
+    }
+
+    if (
+      !mongoose.Types.ObjectId.isValid(userId) ||
+      !mongoose.Types.ObjectId.isValid(productId)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Id không hợp lệ"
+      });
+    }
+
+    const [user, product] = await Promise.all([
+      User.findById(userId),
+      Product.findById(productId)
+    ]);
+
+    if (!user || !product) {
+      return res.status(404).json({
+        success: false,
+        message: "Không tìm thấy user hoặc product"
+      });
+    }
+
+    user.cart = [];
+
+    user.cart.push({
+      productId: product._id,
+      title: product.title,
+      quantity: Number(quantity),
+      note
+    });
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      redirectUrl: "/order/new"
+    });
+
+  } catch (error) {
+    console.error("Buy now error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
+};

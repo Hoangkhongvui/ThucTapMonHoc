@@ -34,6 +34,7 @@ router.post('/product/status', productController.updateProductStatus);
 router.get('/cart/:userId', cartController.loadCart);
 router.post('/cart/add', cartController.addToCart);
 router.post('/cart/remove', cartController.removeFromCart);
+router.post('/cart/buy-now', cartController.buyNow);
 
 router.get('/order/new', orderController.newOrder);
 router.get('/order/:id', orderController.getOrder);
