@@ -42,7 +42,7 @@ async function detailProduct(id) {
             <span class="price">${vnd(infoProduct.price)}</span>
         </div>
         <div class="modal-footer-control">
-            <button class="button-dathangngay" data-product="${infoProduct.id}">Đặt hàng ngay</button>
+            <button class="button-dathangngay" data-product="${infoProduct.id}" onclick="buyNow('${infoProduct._id}')">Đặt hàng ngay</button>
             <button class="button-dat" id="add-cart" onclick="animationCart()"><i class="fa-light fa-basket-shopping"></i></button>
         </div>
     </div>`;
@@ -71,7 +71,7 @@ async function detailProduct(id) {
         })
     })
     // Mua ngay san pham
-    dathangngay();
+    // dathangngay();
 }
 
 async function addCart(userId, productId) {
@@ -129,28 +129,28 @@ async function getProductInfo(id) {
   }
 }
 
-function dathangngay() {
-    let productInfo = document.getElementById("product-detail-content");
-    let datHangNgayBtn = productInfo.querySelector(".button-dathangngay");
-    datHangNgayBtn.onclick = () => {
-        if(localStorage.getItem('currentuser')) {
-            let productId = datHangNgayBtn.getAttribute("data-product");
-            let soluong = parseInt(productInfo.querySelector(".buttons_added .input-qty").value);
-            let notevalue = productInfo.querySelector("#popup-detail-note").value;
-            let ghichu = notevalue == "" ? "Không có ghi chú" : notevalue;
-            let products = JSON.parse(localStorage.getItem('products'));
-            let a = products.find(item => item.id == productId);
-            a.soluong = parseInt(soluong);
-            a.note = ghichu;
-            checkoutpage.classList.add('active');
-            thanhtoanpage(2,a);
-            closeCart();
-            body.style.overflow = "hidden"
-        } else {
-            toast({ title: 'Warning', message: 'Chưa đăng nhập tài khoản !', type: 'warning', duration: 3000 });
-        }
-    }
-}
+// function dathangngay() {
+//     let productInfo = document.getElementById("product-detail-content");
+//     let datHangNgayBtn = productInfo.querySelector(".button-dathangngay");
+//     datHangNgayBtn.onclick = () => {
+//         if(localStorage.getItem('currentuser')) {
+//             let productId = datHangNgayBtn.getAttribute("data-product");
+//             let soluong = parseInt(productInfo.querySelector(".buttons_added .input-qty").value);
+//             let notevalue = productInfo.querySelector("#popup-detail-note").value;
+//             let ghichu = notevalue == "" ? "Không có ghi chú" : notevalue;
+//             let products = JSON.parse(localStorage.getItem('products'));
+//             let a = products.find(item => item.id == productId);
+//             a.soluong = parseInt(soluong);
+//             a.note = ghichu;
+//             checkoutpage.classList.add('active');
+//             thanhtoanpage(2,a);
+//             closeCart();
+//             body.style.overflow = "hidden"
+//         } else {
+//             toast({ title: 'Warning', message: 'Chưa đăng nhập tài khoản !', type: 'warning', duration: 3000 });
+//         }
+//     }
+// }
 
 // Open & Close Cart
 function openCart() {
@@ -388,4 +388,33 @@ function showCategory(category) {
     displayList(productSearch, perPage, currentPageSeach);
     setupPagination(productSearch, perPage, currentPageSeach);
     document.getElementById("home-title").scrollIntoView();
+}
+
+async function buyNow(productId) {
+    // const user = JSON.parse(localStorage.getItem("user"));
+    console.log("userrrr:", user);
+    if (!user) {
+        alert("Vui lòng đăng nhập");
+        return;
+    }
+
+    const res = await fetch("/cart/buy-now", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            userId: user.id,
+            productId,
+            quantity: 1
+        })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+        window.location.href = data.redirectUrl;
+    } else {
+        alert(data.message || "Có lỗi xảy ra");
+    }
 }

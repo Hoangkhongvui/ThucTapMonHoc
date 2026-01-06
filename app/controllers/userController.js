@@ -49,6 +49,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { phone, password } = req.body;
+        const products = await Product.find();
 
         const user = await User.findOne({ phone });
         if (!user) {
@@ -70,7 +71,10 @@ exports.login = async (req, res) => {
             role: user.userType == 0 ? "user" : "admin"
         };
 
-        return res.redirect('/');
+        return res.render('home', {
+            user: req.session.user,
+            products: products,
+        });
     } catch (error) {
         res.status(500).send('Error logging in: ' + error.message);
     }
