@@ -43,7 +43,7 @@
                             <button class="btn-edit" onclick="editProduct(<%= product.id %>)"><i class="fa-light fa-pen-to-square"></i></button>
                             <form action="/product/status" method="POST" style="display:inline;">
                                 <input type="hidden" name="productId" value="<%= product.id %>" />
-                                <button type="submit" class="btn-delete" onclick="confirmDeletion(event)">
+                                <button type="submit" class="btn-delete" onclick="confirmDeleteProduct(event)">
                                     <i class="fa-regular fa-trash"></i>
                                 </button>
                             </form>
