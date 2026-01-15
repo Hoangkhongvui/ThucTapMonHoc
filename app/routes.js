@@ -8,6 +8,7 @@ const userController = require('./controllers/userController');
 const homeController = require('./controllers/homeController');
 const cartController = require('./controllers/cartController');
 const orderController = require('./controllers/orderController')
+const chatbotController = require('./controllers/chatbotController');
 
 router.get('/phone', homeController.printFirstUser);
 router.get('/', homeController.index);
@@ -42,5 +43,19 @@ router.patch('/order/:id/status', orderController.updateStatusOrder);
 router.post('/order/create', orderController.createOrder);
 router.post('/order/create-vnpay', orderController.createOrderVNPay);
 router.get('/order-success', orderController.orderSuccess);
+
+// Chatbot endpoint (simple proxy to controller service)
+router.post('/chatbot', async (req, res) => {
+	try {
+		const message = req.body && req.body.message ? req.body.message : '';
+		if (!message || message.trim().length === 0) return res.status(400).json({ error: 'Message is required' });
+
+		const result = await chatbotController.recommendProducts(message);
+		return res.json(result);
+	} catch (err) {
+		console.error('Chatbot route error:', err);
+		return res.status(500).json({ error: 'Internal server error' });
+	}
+});
 
 module.exports = router;
