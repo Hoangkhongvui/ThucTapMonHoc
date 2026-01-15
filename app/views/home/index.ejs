@@ -11,6 +11,59 @@
     <link rel="stylesheet" href="css/home-responsive.css">
     <link rel="stylesheet" href="css/toast-message.css">
     <link rel="stylesheet" href="font/font-awesome-pro-v6-6.2.0/css/all.min.css"/>
+    <style>
+        /* Simple chat widget styles */
+        .chat-widget {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 2000;
+            font-family: inherit;
+        }
+        .chat-toggle-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#7d49a3,#4b0082 70%);
+            color: #fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+            cursor: pointer;
+            border: none;
+        }
+        .chat-window {
+            width: 340px;
+            max-width: calc(100vw - 48px);
+            height: 460px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .chat-header {
+            background: linear-gradient(90deg,#7d49a3,#4b0082);
+            color: white;
+            padding: 12px 14px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .chat-header .title { font-weight:600; }
+        .chat-body { flex:1; display:flex; flex-direction:column; background:#f7f7f8; overflow-y:scroll; }
+        .chat-messages { padding: 12px; flex:1; display:flex; flex-direction:column; gap:8px; overflow: auto; }
+        .chat-input-row { display:flex; gap:8px; padding:10px; border-top:1px solid #eee; background:#fff; }
+        .chat-input-row input[type="text"]{ flex:1; padding:10px 12px; border-radius:8px; border:1px solid #ddd; }
+        .chat-input-row button.send-btn{ padding:10px 12px; border-radius:8px; border:none; background:#7d49a3; color:#fff; cursor:pointer; }
+        .chat-bubble { max-width:76%; padding:8px 12px; border-radius:12px; display:inline-block; line-height:1.3; }
+        .chat-bubble.user { margin-left:auto; background:#ffefdf; color:#111; border-bottom-right-radius:4px; }
+        .chat-bubble.bot { margin-right:auto; background:#fff; color:#111; border:1px solid #eee; border-bottom-left-radius:4px; }
+        .chat-empty { text-align:center; color:#888; padding:24px 12px; }
+    </style>
 </head>
 <body>
     <header>
@@ -533,6 +586,25 @@
         <a href="#"><i class="fa-regular fa-arrow-up"></i></a>
     </div>
     <div id="toast"></div>
+    <!-- Chat widget -->
+    <div class="chat-widget" aria-live="polite">
+        <div class="chat-window" id="chatWindow" style="display:none;">
+            <div class="chat-header">
+                <div class="title">Hoàng Food - Trợ lý ảo</div>
+                <button id="chatCloseBtn" aria-label="Đóng chat" style="background:transparent;border:none;color:rgba(255,255,255,0.95);font-size:18px;cursor:pointer">&times;</button>
+            </div>
+            <div class="chat-body">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-empty">Chào bạn! Hãy nhập câu hỏi hoặc chọn món ăn bạn muốn.</div>
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." aria-label="Nhập tin nhắn">
+                    <button class="send-btn" id="chatSendBtn">Gửi</button>
+                </div>
+            </div>
+        </div>
+        <button class="chat-toggle-btn" id="chatToggle" aria-label="Mở chat"><i class="fa-solid fa-comment-dots"></i></button>
+    </div>
     <script>
         window.products = <%- JSON.stringify(products) %>;
         window.user = <%- JSON.stringify(user || null) %>;
@@ -542,6 +614,111 @@
     <script src="js/popup.js"></script>
     <script src="js/login_form.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Chat widget behavior (client-side only)
+        (function(){
+            function by(id){return document.getElementById(id)}
+            var toggle = by('chatToggle');
+            var windowEl = by('chatWindow');
+            var closeBtn = by('chatCloseBtn');
+            var sendBtn = by('chatSendBtn');
+            var input = by('chatInput');
+            var messages = by('chatMessages');
+
+            function scrollToBottom(){ messages.scrollTop = messages.scrollHeight; }
+
+            function openChat(){ windowEl.style.display = 'flex'; toggle.style.display = 'none'; scrollToBottom(); }
+            function closeChat(){ windowEl.style.display = 'none'; toggle.style.display = 'flex'; }
+
+            function appendMessage(kind, text){
+                // remove empty hint if present
+                var empty = messages.querySelector('.chat-empty');
+                if(empty) empty.remove();
+
+                var wrap = document.createElement('div');
+                wrap.className = 'chat-bubble ' + (kind === 'user' ? 'user' : 'bot');
+                wrap.textContent = text;
+                messages.appendChild(wrap);
+                scrollToBottom();
+            }
+
+            async function simulateBotReply(userText){
+                // show a pending/loading message
+                var pending = document.createElement('div');
+                pending.className = 'chat-bubble bot pending';
+                pending.textContent = 'Đang trả lời...';
+                var empty = messages.querySelector('.chat-empty'); if(empty) empty.remove();
+                messages.appendChild(pending);
+                scrollToBottom();
+
+                try {
+                    var res = await fetch('/chatbot', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: userText })
+                    });
+
+                    if(!res.ok){
+                        throw new Error('Network response was not ok');
+                    }
+
+                    var data = await res.json();
+
+                    // remove pending element
+                    pending.remove();
+
+                    // Prefer the AI's advice summary if present
+                    if(data && data.advice && data.advice.summary){
+                        appendMessage('bot', data.advice.summary);
+                    }
+
+                    // If recommendations exist, list them
+                    if(data && data.advice && Array.isArray(data.advice.recommendations) && data.advice.recommendations.length > 0){
+                        data.advice.recommendations.forEach(function(rec){
+                            var text = '';
+                            if(rec.productName) text += rec.productName + (rec.reason ? ': ' + rec.reason : '');
+                            else if(rec.reason) text = rec.reason;
+                            if(text) appendMessage('bot', text);
+                        });
+                    }
+
+                    // Fallback: if controller returned products but no advice, show first few product names
+                    if((!data.advice || (!data.advice.summary && (!data.advice.recommendations || data.advice.recommendations.length===0))) && data.products && data.products.length>0){
+                        var names = data.products.slice(0,3).map(p=>p.title || p.name || p.productName).filter(Boolean);
+                        if(names.length) appendMessage('bot', 'Gợi ý: ' + names.join(' — '));
+                    }
+
+                    // Final fallback message
+                    if((!data || (!data.advice && (!data.products || data.products.length===0)))){
+                        appendMessage('bot', 'Xin lỗi, tôi chưa thể trả lời yêu cầu này lúc này.');
+                    }
+
+                } catch (err) {
+                    pending.remove();
+                    console.error('Chatbot error:', err);
+                    appendMessage('bot', 'Không thể kết nối đến chatbot. Vui lòng thử lại sau.');
+                }
+            }
+
+            function send(){
+                var val = input.value;
+                if(!val || !val.trim()) return;
+                appendMessage('user', val.trim());
+                input.value = '';
+                simulateBotReply(val);
+            }
+
+            toggle && toggle.addEventListener('click', openChat);
+            closeBtn && closeBtn.addEventListener('click', closeChat);
+            sendBtn && sendBtn.addEventListener('click', send);
+            input && input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); send(); } });
+
+            // optional: show greeting on load if user present
+            document.addEventListener('DOMContentLoaded', function(){
+                // nothing automatically opens; keep collapsed
+            });
+        })();
+    </script>
 
     <!-- <script src="./js/initialization.js"></script> -->
     <!-- <script src="./js/main.js"></script> -->
