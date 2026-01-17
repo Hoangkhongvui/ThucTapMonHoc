@@ -18,6 +18,8 @@ router.post('/login', userController.login);
 router.post('/register', userController.register);
 router.get('/logout', userController.logout);
 router.get('/session/status', userController.sessionStatus);
+router.post('/user/update', userController.updateInfo);
+router.post('/user/update-password', userController.updatePassword);
 
 //admin
 router.get('/admin', userMiddleware.checkAdmin, adminController.index);
@@ -39,6 +41,7 @@ router.post('/cart/buy-now', cartController.buyNow);
 
 router.get('/order/new', orderController.newOrder);
 router.get('/order/:id', orderController.getOrder);
+router.get('/orders/mine', orderController.getOrdersForCurrentUser);
 router.patch('/order/:id/status', orderController.updateStatusOrder);
 router.post('/order/create', orderController.createOrder);
 router.post('/order/create-vnpay', orderController.createOrderVNPay);

@@ -392,7 +392,7 @@ function showCategory(category) {
 
 async function buyNow(productId) {
     // const user = JSON.parse(localStorage.getItem("user"));
-    console.log("userrrr:", user);
+    // console.log("userrrr:", user);
     if (!user) {
         alert("Vui lòng đăng nhập");
         return;
@@ -416,5 +416,330 @@ async function buyNow(productId) {
         window.location.href = data.redirectUrl;
     } else {
         alert(data.message || "Có lỗi xảy ra");
+    }
+}
+
+// Chuyển đổi trang chủ và trang thông tin tài khoản
+function myAccount() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('trangchu').classList.add('hide');
+    document.getElementById('order-history').classList.remove('open');
+    document.getElementById('account-user').classList.add('open');
+    userInfo();
+}
+
+function userInfo() {
+    document.getElementById('infoname').value = user.fullname;
+    document.getElementById('infophone').value = user.phone;
+    document.getElementById('infoemail').value = user.email;
+    document.getElementById('infoaddress').value = user.address;
+    if (user.email == undefined) {
+        infoemail.value = '';
+    }
+    if (user.address == undefined) {
+        infoaddress.value = '';
+    }
+}
+
+function changeInformation() {
+    // gather DOM values
+    let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+    let user = JSON.parse(localStorage.getItem('currentuser')) || {};
+    let infoname = document.getElementById('infoname');
+    let infoemail = document.getElementById('infoemail');
+    let infoaddress = document.getElementById('infoaddress');
+
+    const payload = {
+        fullname: infoname.value ? infoname.value.trim() : '',
+        email: infoemail.value ? infoemail.value.trim() : '',
+        address: infoaddress.value ? infoaddress.value.trim() : ''
+    };
+
+    // send to server
+    fetch('/user/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data && data.success) {
+            // update localStorage copy (for existing client-side logic)
+            user.fullname = data.user.fullname;
+            user.email = data.user.email;
+            user.address = data.user.address;
+
+            // update accounts list if present
+            let vitri = accounts.findIndex(item => item.phone == user.phone)
+            if (vitri !== -1) {
+                accounts[vitri].fullname = user.fullname;
+                accounts[vitri].email = user.email;
+                accounts[vitri].address = user.address;
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+            }
+
+            localStorage.setItem('currentuser', JSON.stringify(user));
+
+            // update global window.user so templates and other scripts reflect new data
+            try {
+                window.user = data.user;
+            } catch (e) {
+                console.warn('Unable to set window.user:', e);
+            }
+
+            // refresh UI bindings
+            if (typeof kiemtradangnhap === 'function') kiemtradangnhap();
+            if (typeof userInfo === 'function') userInfo();
+            toast({ title: 'Success', message: 'Cập nhật thông tin thành công !', type: 'success', duration: 3000 });
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        } else {
+            const msg = data && data.message ? data.message : 'Lỗi khi cập nhật thông tin';
+            toast({ title: 'Error', message: msg, type: 'error', duration: 4000 });
+        }
+    })
+    .catch(err => {
+        console.error('Update info error:', err);
+        toast({ title: 'Error', message: 'Không thể cập nhật thông tin', type: 'error', duration: 4000 });
+    });
+}
+
+function changePassword() {
+       // Gather DOM
+    const passwordCurEl = document.getElementById('password-cur-info');
+    const passwordAfterEl = document.getElementById('password-after-info');
+    const passwordConfirmEl = document.getElementById('password-comfirm-info');
+
+    const currentPassword = passwordCurEl ? passwordCurEl.value.trim() : '';
+    const newPassword = passwordAfterEl ? passwordAfterEl.value.trim() : '';
+    const confirmPassword = passwordConfirmEl ? passwordConfirmEl.value.trim() : '';
+
+    // Clear previous errors
+    document.querySelector('.password-cur-info-error').innerHTML = '';
+    document.querySelector('.password-after-info-error').innerHTML = '';
+    document.querySelector('.password-after-comfirm-error').innerHTML = '';
+
+    // Basic validation
+    if (!currentPassword) {
+        document.querySelector('.password-cur-info-error').innerHTML = 'Vui lòng nhập mật khẩu hiện tại';
+        return;
+    }
+    if (!newPassword) {
+        document.querySelector('.password-after-info-error').innerHTML = 'Vui lòng nhập mật khẩu mới';
+        return;
+    }
+    if (newPassword.length < 6) {
+        document.querySelector('.password-after-info-error').innerHTML = 'Mật khẩu mới phải có ít nhất 6 ký tự';
+        return;
+    }
+    if (!confirmPassword) {
+        document.querySelector('.password-after-comfirm-error').innerHTML = 'Vui lòng xác nhận mật khẩu';
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        document.querySelector('.password-after-comfirm-error').innerHTML = 'Mật khẩu xác nhận không khớp';
+        return;
+    }
+
+    // Disable button to prevent double submit
+    const btn = document.getElementById('save-password');
+    if (btn) btn.disabled = true;
+
+    fetch('/user/update-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (btn) btn.disabled = false;
+        if (data && data.success) {
+            // update localStorage copies if present
+            try {
+                const currentUser = JSON.parse(localStorage.getItem('currentuser')) || null;
+                if (currentUser) {
+                    currentUser.password = newPassword;
+                    localStorage.setItem('currentuser', JSON.stringify(currentUser));
+                }
+                const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+                if (currentUser && accounts.length) {
+                    const idx = accounts.findIndex(a => a.phone === currentUser.phone);
+                    if (idx !== -1) {
+                        accounts[idx].password = newPassword;
+                        localStorage.setItem('accounts', JSON.stringify(accounts));
+                    }
+                }
+            } catch (e) {
+                console.warn('Unable to update localStorage after password change', e);
+            }
+
+            toast({ title: 'Success', message: data.message || 'Đổi mật khẩu thành công!', type: 'success', duration: 3000 });
+            // clear fields
+            if (passwordCurEl) passwordCurEl.value = '';
+            if (passwordAfterEl) passwordAfterEl.value = '';
+            if (passwordConfirmEl) passwordConfirmEl.value = '';
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        } else {
+            const msg = data && data.message ? data.message : 'Lỗi khi đổi mật khẩu';
+            toast({ title: 'Error', message: msg, type: 'error', duration: 4000 });
+            // show server validation on field if applicable
+            if (msg.toLowerCase().includes('current')) {
+                document.querySelector('.password-cur-info-error').innerHTML = msg;
+            }
+        }
+    })
+    .catch(err => {
+        if (btn) btn.disabled = false;
+        console.error('Error updating password:', err);
+        toast({ title: 'Error', message: 'Không thể kết nối tới máy chủ', type: 'error', duration: 4000 });
+    });
+}
+
+// Chuyển đổi trang chủ và trang xem lịch sử đặt hàng
+function orderHistory() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('account-user').classList.remove('open');
+    document.getElementById('trangchu').classList.add('hide');
+    document.getElementById('order-history').classList.add('open');
+    renderOrderProduct();
+}
+
+function renderOrderProduct() {
+    // Fetch orders from server for the logged-in user
+    fetch('/orders/mine')
+        .then(res => res.json())
+        .then(data => {
+            if (!data || !data.success) {
+                document.querySelector('.order-history-section').innerHTML = `<div class="empty-order-section"><img src="./assets/img/empty-order.jpg" alt="" class="empty-order-img"><p>Chưa có đơn hàng nào</p></div>`;
+                return;
+            }
+
+            const orders = data.orders || [];
+            if (orders.length === 0) {
+                document.querySelector('.order-history-section').innerHTML = `<div class="empty-order-section"><img src="./assets/img/empty-order.jpg" alt="" class="empty-order-img"><p>Chưa có đơn hàng nào</p></div>`;
+                return;
+            }
+
+            let orderHtml = '';
+            orders.forEach(item => {
+                let productHtml = `<div class="order-history-group">`;
+
+                // each item.products contains { productId: { title, price, img }, quantity, price, note }
+                item.products.forEach(p => {
+                    const prod = p.productId || {};
+                    const qty = p.quantity || p.soluong || 1;
+                    const note = p.note || '';
+                    const price = p.price || prod.price || 0;
+
+                    productHtml += `<div class="order-history">
+                        <div class="order-history-left">
+                            <img src="${prod.img || ''}" alt="">
+                            <div class="order-history-info">
+                                <h4>${prod.title || 'Sản phẩm'}</h4>
+                                <p class="order-history-note"><i class="fa-light fa-pen"></i> ${note}</p>
+                                <p class="order-history-quantity">x${qty}</p>
+                            </div>
+                        </div>
+                        <div class="order-history-right">
+                            <div class="order-history-price">
+                                <span class="order-history-current-price">${vnd(price)}</span>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+
+                let textCompl = item.trangthai == 1 ? 'Đã xử lý' : 'Đang xử lý';
+                let classCompl = item.trangthai == 1 ? 'complete' : 'no-complete';
+
+                productHtml += `<div class="order-history-control">
+                    <div class="order-history-status">
+                        <span class="order-history-status-sp ${classCompl}">${textCompl}</span>
+                        <button id="order-history-detail" onclick="detailOrder('${item._id || item.id}')"><i class="fa-regular fa-eye"></i> Xem chi tiết</button>
+                    </div>
+                    <div class="order-history-total">
+                        <span class="order-history-total-desc">Tổng tiền: </span>
+                        <span class="order-history-toltal-price">${vnd(item.tongtien || item.total || 0)}</span>
+                    </div>
+                </div>`;
+
+                productHtml += `</div>`;
+                orderHtml += productHtml;
+            });
+
+            document.querySelector('.order-history-section').innerHTML = orderHtml;
+        })
+        .catch(err => {
+            console.error('Error fetching orders:', err);
+            document.querySelector('.order-history-section').innerHTML = `<div class="empty-order-section"><img src="./assets/img/empty-order.jpg" alt="" class="empty-order-img"><p>Không thể tải đơn hàng</p></div>`;
+        });
+}
+
+// Xem chi tiet don hang
+async function detailOrder(id) {
+    try {
+        // Fetch current user's orders (reuse same endpoint as renderOrderProduct)
+        const res = await fetch('/orders/mine');
+        if (!res.ok) throw new Error('Failed to load orders');
+        const data = await res.json();
+        if (!data || !data.success) throw new Error('No orders returned');
+
+        const orders = data.orders || [];
+        const detail = orders.find(item => (item._id == id || item.id == id));
+        if (!detail) {
+            toast({ title: 'Error', message: 'Không tìm thấy đơn hàng', type: 'error', duration: 3000 });
+            return;
+        }
+
+        // Helper to read multiple possible field names
+        const pick = (obj, ...keys) => {
+            for (const k of keys) if (obj && obj[k] !== undefined) return obj[k];
+            return '';
+        };
+
+        const orderDate = pick(detail, 'thoigiandat', 'createdAt', 'ngaydathang');
+        const shipMethod = pick(detail, 'hinhthucgiao', 'hinhthuc', 'phuongthuc');
+        const shipTimeLabel = pick(detail, 'thoigiangiao', 'giohangiao', 'deliveryTime');
+        const shipDate = pick(detail, 'ngaygiaohang', 'ngaynhanhang', 'deliveryDate');
+        const address = pick(detail, 'diachinhan', 'diachi', 'address');
+        const receiver = pick(detail, 'tenguoinhan', 'nguoinhan', 'receiver');
+        const phone = pick(detail, 'sdtnhan', 'sdt', 'phone');
+
+        let detailOrderHtml = `
+            <ul class="detail-order-group">
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-light fa-calendar-days"></i> Ngày đặt hàng</span>
+                    <span class="detail-order-item-right">${orderDate ? formatDate(orderDate) : ''}</span>
+                </li>
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-light fa-truck"></i> Hình thức giao</span>
+                    <span class="detail-order-item-right">${shipMethod}</span>
+                </li>
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-light fa-clock"></i> Ngày nhận hàng</span>
+                    <span class="detail-order-item-right">${(shipTimeLabel == '' ? '' : (shipTimeLabel + ' - ')) + (shipDate ? formatDate(shipDate) : '')}</span>
+                </li>
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-light fa-location-dot"></i> Địa điểm nhận</span>
+                    <span class="detail-order-item-right">${address}</span>
+                </li>
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-thin fa-person"></i> Người nhận</span>
+                    <span class="detail-order-item-right">${receiver}</span>
+                </li>
+                <li class="detail-order-item">
+                    <span class="detail-order-item-left"><i class="fa-light fa-phone"></i> Số điện thoại nhận</span>
+                    <span class="detail-order-item-right">${phone}</span>
+                </li>
+            </ul>`;
+
+        document.querySelector('.modal.detail-order').classList.add('open');
+        document.querySelector('.detail-order-content').innerHTML = detailOrderHtml;
+
+    } catch (err) {
+        console.error('Error loading order detail:', err);
+        toast({ title: 'Error', message: 'Không thể tải chi tiết đơn hàng', type: 'error', duration: 3000 });
     }
 }
