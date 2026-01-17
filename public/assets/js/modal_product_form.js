@@ -45,7 +45,7 @@ function editProduct(id) {
         });
 }
 
-function confirmDeletion(event) {
+function confirmDeleteProduct(event) {
     event.preventDefault();
 
     const isConfirmed = confirm("Bạn có chắc muốn xóa?");

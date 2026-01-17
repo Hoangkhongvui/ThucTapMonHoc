@@ -312,6 +312,23 @@ function createSecureHash(requestData) {
   return hmac.update(Buffer.from(queryString, "utf-8")).digest("hex");
 }
 
+// Hàm sắp xếp tham số (BẮT BUỘC ĐỂ KHÔNG BỊ SAI CHỮ KÝ)
+function sortObject(obj) {
+  let sorted = {};
+  let str = [];
+  let key;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      str.push(encodeURIComponent(key));
+    }
+  }
+  str.sort();
+  for (key = 0; key < str.length; key++) {
+    sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+  }
+  return sorted;
+}
+
 exports.orderSuccess = async (req, res) => {
   const user = await User.findById(req.session.user.id);
   user.cart = [];
