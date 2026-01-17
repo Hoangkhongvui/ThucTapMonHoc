@@ -78,6 +78,28 @@ exports.getOrder = async (req, res) => {
   }
 }
 
+// Get orders for currently logged-in user
+exports.getOrdersForCurrentUser = async (req, res) => {
+  try {
+    if (!req.session.user || !req.session.user.id) {
+      return res.status(401).json({ success: false, message: 'Not authenticated' });
+    }
+
+    const userId = req.session.user.id;
+
+    const orders = await Order.find({ khachhang: userId })
+      .populate('khachhang', 'fullname phone email address')
+      .populate('products.productId', 'title price img')
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return res.json({ success: true, orders });
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+}
+
 exports.updateStatusOrder = async (req, res) => {
   try {
     const { id } = req.params;
